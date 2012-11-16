@@ -1,0 +1,9 @@
+﻿<#@ template language="C#" #>
+if (typeof (contentManifest) !== "object") { contentManifest = {}; };
+contentManifest["<#= _projName #>.contentproj"] = [
+    <# for (int i = 0; i < _fileNames.Length-1; i++)
+       { #>
+	["File", "Files/<#= _fileNames[i] #>", { "sizeBytes": <#= _fileSize[i] #> }],
+    <# } #>
+	["File", "Files/<#= _fileNames[_fileNames.Length-1] #>", { "sizeBytes": <#= _fileSize[_fileNames.Length-1] #> }]
+];
