@@ -16,7 +16,7 @@ namespace fuHTMLGen
             _nameSpace = Path.GetExtension(_fileNameWOext);
 
             if (customManifest)
-                _customManifest = @"Files/" + _fileNameWOext + ".contentproj";
+                _customManifest = @"Assets/" + _fileNameWOext + ".contentproj";
             else
                 _customManifest = "";
         }

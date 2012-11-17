@@ -32,28 +32,28 @@ namespace fuHTMLGen
             }
 
             // Collecting all files
-            if (Directory.Exists(targDir + @"Files\"))
+            if (Directory.Exists(targDir + @"Assets\"))
             {
-                Console.WriteLine("// Found a Files folder - collecting all and write manifest");
+                Console.WriteLine("// Found a Assets folder - collecting all and write manifest");
 
-                string[] filePaths = Directory.GetFiles(targDir + @"Files\");
+                string[] filePaths = Directory.GetFiles(targDir + @"Assets\");
                 customManifest = true;
 
                 var manifest = new ManifestFile(fileName, filePaths);
                 String manifestContent = manifest.TransformText();
 
-                if (!Directory.Exists(targWeb + @"\Files\"))
-                    Directory.CreateDirectory(targWeb + @"\Files\");
+                if (!Directory.Exists(targWeb + @"\Assets\"))
+                    Directory.CreateDirectory(targWeb + @"\Assets\");
 
-                File.WriteAllText(targWeb + @"\Files\" + fileName + ".contentproj.manifest.js", manifestContent);
+                File.WriteAllText(targWeb + @"\Assets\" + fileName + ".contentproj.manifest.js", manifestContent);
 
                 foreach (var filePath in filePaths)
-                    if (!File.Exists(targWeb + @"\Files\" + Path.GetFileName(filePath)))
-                        File.Copy(filePath, targWeb + @"\Files\" + Path.GetFileName(filePath));
+                    if (!File.Exists(targWeb + @"\Assets\" + Path.GetFileName(filePath)))
+                        File.Copy(filePath, targWeb + @"\Assets\" + Path.GetFileName(filePath));
             }
             else
             {
-                Console.WriteLine("// No Files folder - no additional files will be added");
+                Console.WriteLine("// No Assets folder - no additional files will be added");
             }
 
             if (newFile)
