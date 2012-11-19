@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace fuHTMLGen
 {
@@ -18,26 +15,25 @@ namespace fuHTMLGen
 
             String fileName = Path.GetFileNameWithoutExtension(targApp);
 
-            var newFile = false;
-            var customManifest = false;
+            // Does HTML already exists?
+            var newFile = !File.Exists(targWeb + @"\" + fileName + ".html");
 
-            if (!File.Exists(targWeb + @"\" + fileName + ".html"))
-            {
-                Console.WriteLine("// No HTML file found - generating a simple HTML file");
-                newFile = true;
-            }
-            else
-            {
-                Console.WriteLine("// HTML file already exists - delete it to create a new one");               
-            }
+            Console.WriteLine(newFile
+                                  ? "// No HTML file found - generating a simple HTML file"
+                                  : "// HTML file already exists - delete it to create a new one");
+
 
             // Collecting all files
-            if (Directory.Exists(targDir + @"Assets\"))
-            {
-                Console.WriteLine("// Found a Assets folder - collecting all and write manifest");
+            var customManifest = Directory.Exists(targDir + @"Assets\");
+            var customCSS = "";
 
+            Console.WriteLine(customManifest
+                                  ? "// Found an Assets folder - collecting all and write manifest"
+                                  : "// No Assets folder - no additional files will be added");
+
+            if (customManifest)
+            {
                 string[] filePaths = Directory.GetFiles(targDir + @"Assets\");
-                customManifest = true;
 
                 var manifest = new ManifestFile(fileName, filePaths);
                 String manifestContent = manifest.TransformText();
@@ -48,22 +44,29 @@ namespace fuHTMLGen
                 File.WriteAllText(targWeb + @"\Assets\" + fileName + ".contentproj.manifest.js", manifestContent);
 
                 foreach (var filePath in filePaths)
+                {
+                    if (Path.GetExtension(filePath) == ".css")
+                        customCSS = Path.GetFileName(filePath);
+
                     if (!File.Exists(targWeb + @"\Assets\" + Path.GetFileName(filePath)))
                         File.Copy(filePath, targWeb + @"\Assets\" + Path.GetFileName(filePath));
-            }
-            else
-            {
-                Console.WriteLine("// No Assets folder - no additional files will be added");
+                }
             }
 
+            // Create HTML file
             if (newFile)
             {
-                var page = new WebPage(targApp, customManifest);
+                Console.WriteLine(customCSS == ""
+                                      ? "// No additional .css file found in Assets folder - using only default one"
+                                      : "// Found an additional .css file in Assets folder - adding to HTML file");
+
+                var page = new WebPage(targApp, customManifest, customCSS);
                 String pageContent = page.TransformText();
 
                 File.WriteAllText(targWeb + @"\" + fileName + ".html", pageContent);
             }
 
+            // Done
             Console.WriteLine("// Finished all tasks");
 
             return 0;

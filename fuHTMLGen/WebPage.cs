@@ -12,7 +12,7 @@ namespace fuHTMLGen
     using System;
     
     
-    #line 1 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\fuHTMLGen\WebPage.tt"
+    #line 1 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class WebPage : WebPageBase
     {
@@ -20,51 +20,58 @@ namespace fuHTMLGen
         {
             this.Write("<!DOCTYPE html> \r\n<html>\r\n<head>\r\n\t<title>");
             
-            #line 5 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 5 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileNameWOext));
             
             #line default
             #line hidden
-            this.Write(@"</title>
-
-	<link rel=""stylesheet"" href=""browser.css"">
-	<meta http-equiv=""Content-Type"" content=""text/html; charset=iso-8859-1"">
-	<meta http-equiv=""X-UA-Compatible"" content=""IE=edge"">
-</head>
-
-<body onload=""onLoad()"">
-	<script>
-		var jsilConfig = {
-			libraryRoot: ""./"",
-			scriptRoot: ""./"",
-			fileRoot: ""./"",
-			contentRoot: ""./SampleObj/"",
-
-			manifests: [
-				""");
+            this.Write("</title>\r\n\r\n\t<link rel=\"stylesheet\" type=\"text/css\" href=\"browser.css\">\r\n\t");
             
-            #line 21 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 8 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
+ if (_customCSS != "") { 
+            
+            #line default
+            #line hidden
+            this.Write("<link rel=\"stylesheet\" type=\"text/css\" href=\"");
+            
+            #line 9 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_customCSS));
+            
+            #line default
+            #line hidden
+            this.Write("\">\r\n\t");
+            
+            #line 10 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1252\">\r\n</hea" +
+                    "d>\r\n\r\n<body onload=\"onLoad()\">\r\n\t<script>\r\n\t\tvar jsilConfig = {\r\n\t\t\tlibraryRoot:" +
+                    " \"./\",\r\n\r\n\t\t\tmanifests: [\r\n\t\t\t\t\"");
+            
+            #line 20 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileName));
             
             #line default
             #line hidden
             this.Write("\",\r\n\t\t\t");
             
-            #line 22 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 21 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
  if (_customManifest != "") { 
             
             #line default
             #line hidden
             this.Write("\t\"");
             
-            #line 23 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 22 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_customManifest));
             
             #line default
             #line hidden
             this.Write("\",\r\n\t\t\t");
             
-            #line 24 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 23 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
  } 
             
             #line default
@@ -72,36 +79,22 @@ namespace fuHTMLGen
             this.Write("],\r\n\t\t};\r\n\t</script>\r\n\r\n\t<script src=\"JSIL.js\" type=\"text/javascript\"></script>\r\n" +
                     "\t<script src=\"");
             
-            #line 30 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 29 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileName));
             
             #line default
             #line hidden
-            this.Write(@".manifest.js"" type=""text/javascript""></script>
-
-	<!-- workaround for chromium bug -->
-	<div id=""scripts""></div>
-	<div id=""images""></div>
-	<div id=""sounds""></div>
-	<div id=""fonts""></div>
-
-	<canvas id=""canvas"" width=""100%"" height=""100%""></canvas><br>
-
-	<script type=""text/javascript"">
-		var assetsToLoad = [
-			[""Library"", ""Fusee.Engine.Imp.WebGL.js""],
-		];
-
-		function runMain () {
-			$asm00.");
+            this.Write(".manifest.js\" type=\"text/javascript\"></script>\r\n\r\n\t<canvas id=\"canvas\"></canvas>\r" +
+                    "\n\r\n\t<script type=\"text/javascript\">\r\n\t\tvar assetsToLoad = [\r\n\t\t\t[\"Library\", \"Fus" +
+                    "ee.Engine.Imp.WebGL.js\"],\r\n\t\t];\r\n\r\n\t\tfunction runMain () {\r\n\t\t\t$asm00.");
             
-            #line 46 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 39 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileNameWOext));
             
             #line default
             #line hidden
             
-            #line 46 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 39 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_nameSpace));
             
             #line default

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace fuHTMLGen
 {
@@ -12,14 +9,14 @@ namespace fuHTMLGen
         private readonly string[] _fileNames;
         private readonly long[] _fileSize;
 
-        public ManifestFile(string projName, string[] filePaths)
+        public ManifestFile(string projName, ICollection<string> filePaths)
         {
             _projName = projName;
 
-            int ct = 0;
+            var ct = 0;
 
-            _fileNames = new string[filePaths.Length];
-            _fileSize = new long[filePaths.Length];
+            _fileNames = new string[filePaths.Count];
+            _fileSize = new long[filePaths.Count];
 
             foreach (var filePath in filePaths)
             {
