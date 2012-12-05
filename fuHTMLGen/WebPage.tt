@@ -15,6 +15,8 @@
 	<script>
 		var jsilConfig = {
 			libraryRoot: "./",
+			localStorage: true,
+	        readOnlyStorage: true,
 
 			manifests: [
 				"<#= _fileName #>",
