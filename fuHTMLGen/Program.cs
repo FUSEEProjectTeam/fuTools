@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace fuHTMLGen
 {
@@ -33,7 +35,10 @@ namespace fuHTMLGen
 
             if (customManifest)
             {
-                string[] filePaths = Directory.GetFiles(targDir + @"Assets\");
+                List<string> filePaths = Directory.GetFiles(targDir + @"Assets\").ToList();
+
+                // load Fusee.Engine.Imp.WebGL.js first
+                filePaths.Insert(0, targWeb + @"\Fusee.Engine.Imp.WebGL.js");
 
                 var manifest = new ManifestFile(fileName, filePaths);
                 String manifestContent = manifest.TransformText();

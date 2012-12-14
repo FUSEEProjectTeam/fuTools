@@ -16,8 +16,65 @@ namespace fuHTMLGen
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class ManifestFile : ManifestFileBase
     {
+        #region ToString Helpers
+        /// <summary>
+        /// Utility class to produce culture-oriented representation of an object as a string.
+        /// </summary>
+        public class ToStringInstanceHelper
+        {
+            private System.IFormatProvider formatProviderField  = global::System.Globalization.CultureInfo.InvariantCulture;
+            /// <summary>
+            /// Gets or sets format provider to be used by ToStringWithCulture method.
+            /// </summary>
+            public System.IFormatProvider FormatProvider
+            {
+                get
+                {
+                    return this.formatProviderField ;
+                }
+                set
+                {
+                    if ((value != null))
+                    {
+                        this.formatProviderField  = value;
+                    }
+                }
+            }
+            /// <summary>
+            /// This is called from the compile/run appdomain to convert objects within an expression block to a string
+            /// </summary>
+            public string ToStringWithCulture(object objectToConvert)
+            {
+                if ((objectToConvert == null))
+                {
+                    throw new global::System.ArgumentNullException("objectToConvert");
+                }
+                System.Type t = objectToConvert.GetType();
+                System.Reflection.MethodInfo method = t.GetMethod("ToString", new System.Type[] {
+                            typeof(System.IFormatProvider)});
+                if ((method == null))
+                {
+                    return objectToConvert.ToString();
+                }
+                else
+                {
+                    return ((string)(method.Invoke(objectToConvert, new object[] {
+                                this.formatProviderField })));
+                }
+            }
+        }
+        private ToStringInstanceHelper toStringHelperField = new ToStringInstanceHelper();
+        public ToStringInstanceHelper ToStringHelper
+        {
+            get
+            {
+                return this.toStringHelperField;
+            }
+        }
+        #endregion
         public virtual string TransformText()
         {
+            this.GenerationEnvironment = null;
             this.Write("if (typeof (contentManifest) !== \"object\") { contentManifest = {}; };\r\ncontentMan" +
                     "ifest[\"");
             
@@ -26,46 +83,81 @@ namespace fuHTMLGen
             
             #line default
             #line hidden
-            this.Write(".contentproj\"] = [\r\n    ");
+            this.Write(".contentproj\"] = [\r\n\t[\"");
             
             #line 4 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
- for (int i = 0; i < _fileNames.Length-1; i++)
+            this.Write(this.ToStringHelper.ToStringWithCulture(_fileTypes[0]));
+            
+            #line default
+            #line hidden
+            this.Write("\",\t\"");
+            
+            #line 4 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_fileNames[0]));
+            
+            #line default
+            #line hidden
+            this.Write("\",\t{ \"sizeBytes\": ");
+            
+            #line 4 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_fileSize[0]));
+            
+            #line default
+            #line hidden
+            this.Write(" }],\r\n    ");
+            
+            #line 5 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+ for (int i = 1; i < _fileCount-1; i++)
        { 
             
             #line default
             #line hidden
-            this.Write("\t[\"File\", \"Assets/");
+            this.Write("\t[\"");
             
-            #line 6 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 7 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_fileTypes[i]));
+            
+            #line default
+            #line hidden
+            this.Write("\",\t\"Assets/");
+            
+            #line 7 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileNames[i]));
             
             #line default
             #line hidden
-            this.Write("\", { \"sizeBytes\": ");
+            this.Write("\",\t{ \"sizeBytes\": ");
             
-            #line 6 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 7 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileSize[i]));
             
             #line default
             #line hidden
             this.Write(" }],\r\n    ");
             
-            #line 7 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 8 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t[\"File\", \"Assets/");
+            this.Write("\t[\"");
             
-            #line 8 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_fileNames[_fileNames.Length-1]));
+            #line 9 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_fileTypes[_fileCount-1]));
             
             #line default
             #line hidden
-            this.Write("\", { \"sizeBytes\": ");
+            this.Write("\",\t\"Assets/");
             
-            #line 8 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_fileSize[_fileNames.Length-1]));
+            #line 9 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_fileNames[_fileCount-1]));
+            
+            #line default
+            #line hidden
+            this.Write("\",\t{ \"sizeBytes\": ");
+            
+            #line 9 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_fileSize[_fileCount-1]));
             
             #line default
             #line hidden
@@ -285,62 +377,6 @@ namespace fuHTMLGen
         {
             this.indentLengths.Clear();
             this.currentIndentField = "";
-        }
-        #endregion
-        #region ToString Helpers
-        /// <summary>
-        /// Utility class to produce culture-oriented representation of an object as a string.
-        /// </summary>
-        public class ToStringInstanceHelper
-        {
-            private System.IFormatProvider formatProviderField  = global::System.Globalization.CultureInfo.InvariantCulture;
-            /// <summary>
-            /// Gets or sets format provider to be used by ToStringWithCulture method.
-            /// </summary>
-            public System.IFormatProvider FormatProvider
-            {
-                get
-                {
-                    return this.formatProviderField ;
-                }
-                set
-                {
-                    if ((value != null))
-                    {
-                        this.formatProviderField  = value;
-                    }
-                }
-            }
-            /// <summary>
-            /// This is called from the compile/run appdomain to convert objects within an expression block to a string
-            /// </summary>
-            public string ToStringWithCulture(object objectToConvert)
-            {
-                if ((objectToConvert == null))
-                {
-                    throw new global::System.ArgumentNullException("objectToConvert");
-                }
-                System.Type t = objectToConvert.GetType();
-                System.Reflection.MethodInfo method = t.GetMethod("ToString", new System.Type[] {
-                            typeof(System.IFormatProvider)});
-                if ((method == null))
-                {
-                    return objectToConvert.ToString();
-                }
-                else
-                {
-                    return ((string)(method.Invoke(objectToConvert, new object[] {
-                                this.formatProviderField })));
-                }
-            }
-        }
-        private ToStringInstanceHelper toStringHelperField = new ToStringInstanceHelper();
-        public ToStringInstanceHelper ToStringHelper
-        {
-            get
-            {
-                return this.toStringHelperField;
-            }
         }
         #endregion
     }

@@ -16,8 +16,65 @@ namespace fuHTMLGen
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class WebPage : WebPageBase
     {
+        #region ToString Helpers
+        /// <summary>
+        /// Utility class to produce culture-oriented representation of an object as a string.
+        /// </summary>
+        public class ToStringInstanceHelper
+        {
+            private System.IFormatProvider formatProviderField  = global::System.Globalization.CultureInfo.InvariantCulture;
+            /// <summary>
+            /// Gets or sets format provider to be used by ToStringWithCulture method.
+            /// </summary>
+            public System.IFormatProvider FormatProvider
+            {
+                get
+                {
+                    return this.formatProviderField ;
+                }
+                set
+                {
+                    if ((value != null))
+                    {
+                        this.formatProviderField  = value;
+                    }
+                }
+            }
+            /// <summary>
+            /// This is called from the compile/run appdomain to convert objects within an expression block to a string
+            /// </summary>
+            public string ToStringWithCulture(object objectToConvert)
+            {
+                if ((objectToConvert == null))
+                {
+                    throw new global::System.ArgumentNullException("objectToConvert");
+                }
+                System.Type t = objectToConvert.GetType();
+                System.Reflection.MethodInfo method = t.GetMethod("ToString", new System.Type[] {
+                            typeof(System.IFormatProvider)});
+                if ((method == null))
+                {
+                    return objectToConvert.ToString();
+                }
+                else
+                {
+                    return ((string)(method.Invoke(objectToConvert, new object[] {
+                                this.formatProviderField })));
+                }
+            }
+        }
+        private ToStringInstanceHelper toStringHelperField = new ToStringInstanceHelper();
+        public ToStringInstanceHelper ToStringHelper
+        {
+            get
+            {
+                return this.toStringHelperField;
+            }
+        }
+        #endregion
         public virtual string TransformText()
         {
+            this.GenerationEnvironment = null;
             this.Write("<!DOCTYPE html> \r\n<html>\r\n<head>\r\n\t<title>");
             
             #line 5 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
@@ -46,33 +103,43 @@ namespace fuHTMLGen
             
             #line default
             #line hidden
-            this.Write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1252\">\r\n</hea" +
-                    "d>\r\n\r\n<body onload=\"onLoad()\">\r\n\t<script>\r\n\t\tvar jsilConfig = {\r\n\t\t\tlibraryRoot:" +
-                    " \"./\",\r\n\t\t\tlocalStorage: true,\r\n\t        readOnlyStorage: true,\r\n\r\n\t\t\tmanifests:" +
-                    " [\r\n\t\t\t\t\"");
+            this.Write(@"<meta http-equiv=""Content-Type"" content=""text/html; charset=windows-1252"">
+</head>
+
+<body onload=""onLoad()"">
+	<script>
+		var jsilConfig = {
+			libraryRoot: ""./"",
+			localStorage: true,
+			readOnlyStorage: true,
+			contentRoot: ""./"",
+			xna: ""3"",
+
+			manifests: [
+				""");
             
-            #line 22 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 24 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileName));
             
             #line default
             #line hidden
             this.Write("\",\r\n\t\t\t");
             
-            #line 23 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 25 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
  if (_customManifest != "") { 
             
             #line default
             #line hidden
             this.Write("\t\"");
             
-            #line 24 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 26 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_customManifest));
             
             #line default
             #line hidden
             this.Write("\",\r\n\t\t\t");
             
-            #line 25 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 27 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
  } 
             
             #line default
@@ -80,22 +147,21 @@ namespace fuHTMLGen
             this.Write("],\r\n\t\t};\r\n\t</script>\r\n\r\n\t<script src=\"JSIL.js\" type=\"text/javascript\"></script>\r\n" +
                     "\t<script src=\"");
             
-            #line 31 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 33 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileName));
             
             #line default
             #line hidden
             this.Write(".manifest.js\" type=\"text/javascript\"></script>\r\n\r\n\t<canvas id=\"canvas\"></canvas>\r" +
-                    "\n\r\n\t<script type=\"text/javascript\">\r\n\t\tvar assetsToLoad = [\r\n\t\t\t[\"Library\", \"Fus" +
-                    "ee.Engine.Imp.WebGL.js\"],\r\n\t\t];\r\n\r\n\t\tfunction runMain () {\r\n\t\t\t$asm00.");
+                    "\n\r\n\t<script type=\"text/javascript\">\r\n\t\tfunction runMain () {\r\n\t\t\t$asm00.");
             
-            #line 41 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 39 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileNameWOext));
             
             #line default
             #line hidden
             
-            #line 41 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 39 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_nameSpace));
             
             #line default
@@ -327,62 +393,6 @@ namespace fuHTMLGen
         {
             this.indentLengths.Clear();
             this.currentIndentField = "";
-        }
-        #endregion
-        #region ToString Helpers
-        /// <summary>
-        /// Utility class to produce culture-oriented representation of an object as a string.
-        /// </summary>
-        public class ToStringInstanceHelper
-        {
-            private System.IFormatProvider formatProviderField  = global::System.Globalization.CultureInfo.InvariantCulture;
-            /// <summary>
-            /// Gets or sets format provider to be used by ToStringWithCulture method.
-            /// </summary>
-            public System.IFormatProvider FormatProvider
-            {
-                get
-                {
-                    return this.formatProviderField ;
-                }
-                set
-                {
-                    if ((value != null))
-                    {
-                        this.formatProviderField  = value;
-                    }
-                }
-            }
-            /// <summary>
-            /// This is called from the compile/run appdomain to convert objects within an expression block to a string
-            /// </summary>
-            public string ToStringWithCulture(object objectToConvert)
-            {
-                if ((objectToConvert == null))
-                {
-                    throw new global::System.ArgumentNullException("objectToConvert");
-                }
-                System.Type t = objectToConvert.GetType();
-                System.Reflection.MethodInfo method = t.GetMethod("ToString", new System.Type[] {
-                            typeof(System.IFormatProvider)});
-                if ((method == null))
-                {
-                    return objectToConvert.ToString();
-                }
-                else
-                {
-                    return ((string)(method.Invoke(objectToConvert, new object[] {
-                                this.formatProviderField })));
-                }
-            }
-        }
-        private ToStringInstanceHelper toStringHelperField = new ToStringInstanceHelper();
-        public ToStringInstanceHelper ToStringHelper
-        {
-            get
-            {
-                return this.toStringHelperField;
-            }
         }
         #endregion
     }

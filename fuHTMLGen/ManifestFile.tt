@@ -1,9 +1,10 @@
 ﻿<#@ template language="C#" #>
 if (typeof (contentManifest) !== "object") { contentManifest = {}; };
 contentManifest["<#= _projName #>.contentproj"] = [
-    <# for (int i = 0; i < _fileNames.Length-1; i++)
+	["<#= _fileTypes[0] #>",	"<#= _fileNames[0] #>",	{ "sizeBytes": <#= _fileSize[0] #> }],
+    <# for (int i = 1; i < _fileCount-1; i++)
        { #>
-	["File", "Assets/<#= _fileNames[i] #>", { "sizeBytes": <#= _fileSize[i] #> }],
+	["<#= _fileTypes[i] #>",	"Assets/<#= _fileNames[i] #>",	{ "sizeBytes": <#= _fileSize[i] #> }],
     <# } #>
-	["File", "Assets/<#= _fileNames[_fileNames.Length-1] #>", { "sizeBytes": <#= _fileSize[_fileNames.Length-1] #> }]
+	["<#= _fileTypes[_fileCount-1] #>",	"Assets/<#= _fileNames[_fileCount-1] #>",	{ "sizeBytes": <#= _fileSize[_fileCount-1] #> }]
 ];

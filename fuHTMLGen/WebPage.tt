@@ -16,7 +16,9 @@
 		var jsilConfig = {
 			libraryRoot: "./",
 			localStorage: true,
-	        readOnlyStorage: true,
+			readOnlyStorage: true,
+			contentRoot: "./",
+			xna: "3",
 
 			manifests: [
 				"<#= _fileName #>",
@@ -33,10 +35,6 @@
 	<canvas id="canvas"></canvas>
 
 	<script type="text/javascript">
-		var assetsToLoad = [
-			["Library", "Fusee.Engine.Imp.WebGL.js"],
-		];
-
 		function runMain () {
 			$asm00.<#= _fileNameWOext #><#= _nameSpace #>.Main([]);
 		};
