@@ -9,6 +9,8 @@
 			contentRoot: "./",
 			xna: "3",
 
+			showProgressBar: true,
+
 			manifests: [
 				"<#= _fileName #>",
 			<# if (_customManifest != "") { #>

@@ -51,24 +51,22 @@ namespace fuHTMLGen
 
 	<script src=""Assets/Config/jsil_config.js"" type=""text/javascript""></script>
 	<script src=""Assets/Scripts/JSIL.js"" type=""text/javascript""></script>
-	<script src=""Assets/Scripts/");
+</head>
+
+<body onload=""onLoad()"">
+	<canvas id=""canvas""></canvas>
+
+	<script type=""text/javascript"">
+		function runMain () {
+			$asm00.");
             
-            #line 15 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_fileName));
-            
-            #line default
-            #line hidden
-            this.Write(".manifest.js\" type=\"text/javascript\"></script>\r\n</head>\r\n\r\n<body onload=\"onLoad()" +
-                    "\">\r\n\t<canvas id=\"canvas\"></canvas>\r\n\r\n\t<script type=\"text/javascript\">\r\n\t\tfuncti" +
-                    "on runMain () {\r\n\t\t\t$asm00.");
-            
-            #line 23 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 22 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileNameWOext));
             
             #line default
             #line hidden
             
-            #line 23 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
+            #line 22 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\WebPage.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_nameSpace));
             
             #line default

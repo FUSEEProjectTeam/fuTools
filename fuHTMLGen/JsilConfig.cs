@@ -18,33 +18,43 @@ namespace fuHTMLGen
     {
         public virtual string TransformText()
         {
-            this.Write("\t\tvar jsilConfig = {\r\n\t\t\tlibraryRoot: \"./Assets/Scripts/\",\r\n\t\t\tmanifestRoot: \"./A" +
-                    "ssets/Scripts/\",\r\n\t\t\tscriptRoot: \"./Assets/Scripts/\",\r\n\t\t\t\r\n\t\t\tlocalStorage: tru" +
-                    "e,\r\n\t\t\treadOnlyStorage: true,\r\n\t\t\tcontentRoot: \"./\",\r\n\t\t\txna: \"3\",\r\n\r\n\t\t\tmanifes" +
-                    "ts: [\r\n\t\t\t\t\"");
+            this.Write(@"		var jsilConfig = {
+			libraryRoot: ""./Assets/Scripts/"",
+			manifestRoot: ""./Assets/Scripts/"",
+			scriptRoot: ""./Assets/Scripts/"",
+			
+			localStorage: true,
+			readOnlyStorage: true,
+			contentRoot: ""./"",
+			xna: ""3"",
+
+			showProgressBar: true,
+
+			manifests: [
+				""");
             
-            #line 13 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\JsilConfig.tt"
+            #line 15 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\JsilConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileName));
             
             #line default
             #line hidden
             this.Write("\",\r\n\t\t\t");
             
-            #line 14 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\JsilConfig.tt"
+            #line 16 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\JsilConfig.tt"
  if (_customManifest != "") { 
             
             #line default
             #line hidden
             this.Write("\t\"");
             
-            #line 15 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\JsilConfig.tt"
+            #line 17 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\JsilConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_customManifest));
             
             #line default
             #line hidden
             this.Write("\",\r\n\t\t\t");
             
-            #line 16 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\JsilConfig.tt"
+            #line 18 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\JsilConfig.tt"
  } 
             
             #line default
