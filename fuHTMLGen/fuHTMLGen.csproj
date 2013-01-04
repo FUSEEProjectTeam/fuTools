@@ -44,9 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomConfig.cs" />
     <Compile Include="CustomManifest.cs" />
     <Compile Include="CustomPage.cs" />
     <Compile Include="FileTypes.cs" />
+    <Compile Include="JsilConfig.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JsilConfig.tt</DependentUpon>
+    </Compile>
     <Compile Include="ManifestFile.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -62,6 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="JsilConfig.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>JsilConfig.cs</LastGenOutput>
+    </None>
     <None Include="ManifestFile.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ManifestFile.cs</LastGenOutput>

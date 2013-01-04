@@ -1,0 +1,18 @@
+﻿<#@ template language="C#" #>
+		var jsilConfig = {
+			libraryRoot: "./Assets/Scripts/",
+			manifestRoot: "./Assets/Scripts/",
+			scriptRoot: "./Assets/Scripts/",
+			
+			localStorage: true,
+			readOnlyStorage: true,
+			contentRoot: "./",
+			xna: "3",
+
+			manifests: [
+				"<#= _fileName #>",
+			<# if (_customManifest != "") { #>
+	"<#= _customManifest #>",
+			<# } #>
+],
+		};
