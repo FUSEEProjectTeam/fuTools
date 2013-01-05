@@ -75,7 +75,7 @@ namespace fuHTMLGen
                     if (Path.GetFileName(filePath) == "fusee_config.xml")
                         pathExt = @"Config\";
 
-                    if (!File.Exists(targWeb + @"\Assets\" + Path.GetFileName(filePath)))
+                    if (!File.Exists(targWeb + @"\Assets\" + pathExt + Path.GetFileName(filePath)))
                         File.Copy(filePath, targWeb + @"\Assets\" + pathExt + Path.GetFileName(filePath));
 
                     if (pathExt != "")

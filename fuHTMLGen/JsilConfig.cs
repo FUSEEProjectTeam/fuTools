@@ -18,24 +18,23 @@ namespace fuHTMLGen
     {
         public virtual string TransformText()
         {
-            this.Write("\t\tvar jsilConfig = {\r\n\t\t\tlibraryRoot: \"./Assets/Scripts/\",\r\n\t\t\tmanifestRoot: \"./A" +
-                    "ssets/Scripts/\",\r\n\t\t\tscriptRoot: \"./Assets/Scripts/\",\r\n\t\t\t\r\n\t\t\tlocalStorage: tru" +
-                    "e,\r\n\t\t\treadOnlyStorage: true,\r\n\t\t\tcontentRoot: \"./\",\r\n\t\t\txna: \"3\",\r\n\r\n\t\t\tshowPro" +
-                    "gressBar: ");
+            this.Write("var jsilConfig = {\r\n\tlibraryRoot: \"./Assets/Scripts/\",\r\n\tmanifestRoot: \"./Assets/" +
+                    "Scripts/\",\r\n\tscriptRoot: \"./Assets/Scripts/\",\r\n\t\t\t\r\n\tlocalStorage: true,\r\n\treadO" +
+                    "nlyStorage: true,\r\n\tcontentRoot: \"./\",\r\n\txna: \"3\",\r\n\r\n\tshowProgressBar: ");
             
             #line 12 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\JsilConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_useProgrBar));
             
             #line default
             #line hidden
-            this.Write(",\r\n\r\n\t\t\tmanifests: [\r\n\t\t\t\t\"");
+            this.Write(",\r\n\r\n\tmanifests: [\r\n\t\t\"");
             
             #line 15 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\JsilConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileName));
             
             #line default
             #line hidden
-            this.Write("\",\r\n\t\t\t");
+            this.Write("\",\r\n\t");
             
             #line 16 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\JsilConfig.tt"
  if (_customManifest != "") { 
@@ -49,14 +48,51 @@ namespace fuHTMLGen
             
             #line default
             #line hidden
-            this.Write("\",\r\n\t\t\t");
+            this.Write("\",\r\n\t");
             
             #line 18 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\JsilConfig.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("],\r\n\t\t};");
+            this.Write(@"],
+
+	updateProgressBar: function (prefix, suffix, bytesLoaded, bytesTotal) {
+  		var loadingProgress = document.getElementById(""loadingProgress"");
+  		var progressBar = document.getElementById(""progressBar"");
+  		var progressText = document.getElementById(""progressText"");
+  
+  		var w = 0;
+
+  		if (loadingProgress) {
+    			w = (bytesLoaded * (loadingProgress.clientWidth+101)) / (bytesTotal);
+    			if (w < 0)
+      				w = 0;
+    			else if (w > (loadingProgress.clientWidth+101))
+      				w = (loadingProgress.clientWidth+101);
+  		}
+
+  		if (progressBar)
+    			progressBar.style.width = w.toString() + ""px"";
+
+  		if (progressText) {
+    			var progressString;
+
+   			if (suffix === null) {
+     				progressString = prefix;
+    			} else {
+      				progressString = prefix + Math.floor(bytesLoaded) + suffix + "" / "" + Math.floor(bytesTotal) + suffix;
+    			}
+
+    			if (jsilConfig.formatProgressText)
+      				progressString = jsilConfig.formatProgressText(prefix, suffix, bytesLoaded, bytesTotal, progressString);
+
+    			progressText.textContent = progressString;
+    			progressText.style.left = ((loadingProgress.clientWidth - progressText.clientWidth) / 2).toString() + ""px"";
+    			progressText.style.top = ((loadingProgress.clientHeight - progressText.clientHeight) / 2).toString() + ""px"";
+  		}
+	}
+};");
             return this.GenerationEnvironment.ToString();
         }
     }
