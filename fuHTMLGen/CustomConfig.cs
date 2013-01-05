@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace fuHTMLGen
 {
@@ -8,15 +11,32 @@ namespace fuHTMLGen
         private readonly string _fileNameWOext;
         private readonly string _customManifest;
 
-        public JsilConfig(string target, bool customManifest)
-        {
-            _fileName = Path.GetFileName(target);
-            _fileNameWOext = Path.GetFileNameWithoutExtension(target);
+        private readonly string _useProgrBar;
 
-            if (customManifest)
-                _customManifest = _fileNameWOext + ".contentproj";
+        public JsilConfig(string targApp, string targDir, bool customManifest, bool customConf)
+        {
+            _fileName = Path.GetFileName(targApp);
+            _fileNameWOext = Path.GetFileNameWithoutExtension(targApp);
+
+            _customManifest = (customManifest) ? _fileNameWOext + ".contentproj" : "";
+
+            if (!customConf)
+            {
+                _useProgrBar = "true";
+            }
             else
-                _customManifest = "";
+            {
+                var xmlSer = new XmlSerializer(typeof(ConfXMLReader));
+
+                StreamReader confReader = File.OpenText(targDir + @"Assets\fusee_config.xml");
+                var conf = (ConfXMLReader)xmlSer.Deserialize(confReader);
+                confReader.Close();
+
+                // read settings
+                _useProgrBar = (conf.WebBuildConf.UseProgressBar == "")
+                                   ? "true"
+                                   : conf.WebBuildConf.UseProgressBar.ToLower();
+            }
         }
     }
 }

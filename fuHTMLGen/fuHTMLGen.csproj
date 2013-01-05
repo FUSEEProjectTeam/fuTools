@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfXMLReader.cs" />
     <Compile Include="CustomConfig.cs" />
     <Compile Include="CustomManifest.cs" />
     <Compile Include="CustomPage.cs" />

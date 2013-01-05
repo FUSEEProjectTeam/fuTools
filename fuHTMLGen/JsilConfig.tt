@@ -9,7 +9,7 @@
 			contentRoot: "./",
 			xna: "3",
 
-			showProgressBar: true,
+			showProgressBar: <#= _useProgrBar #>,
 
 			manifests: [
 				"<#= _fileName #>",

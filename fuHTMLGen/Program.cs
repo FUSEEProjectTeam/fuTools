@@ -60,29 +60,33 @@ namespace fuHTMLGen
                 else
                     return 1;
 
-                var manifest = new ManifestFile(fileName, filePaths);
-                String manifestContent = manifest.TransformText();
-
-                File.WriteAllText(targWeb + @"\Assets\Scripts\" + fileName + ".contentproj.manifest.js", manifestContent);
-
-                foreach (var filePath in filePaths)
+                // copy to output folder
+                for (var ct = filePaths.Count - 1; ct > 0; ct--)
                 {
-                    if (filePath.Contains("Fusee.Engine.Imp.WebGL.js"))
-                        continue;
+                    String pathExt = "";
+                    String filePath = filePaths.ElementAt(ct);
 
                     if (Path.GetExtension(filePath) == ".css")
                     {
                         customCSS = Path.GetFileName(filePath);
+                        pathExt = @"Styles\";
+                    }
 
-                        if (!File.Exists(targWeb + @"\Assets\Styles\" + Path.GetFileName(filePath)))
-                            File.Copy(filePath, targWeb + @"\Assets\Styles\" + Path.GetFileName(filePath));
-                    }
-                    else
-                    {
-                        if (!File.Exists(targWeb + @"\Assets\" + Path.GetFileName(filePath)))
-                            File.Copy(filePath, targWeb + @"\Assets\" + Path.GetFileName(filePath));
-                    }
+                    if (Path.GetFileName(filePath) == "fusee_config.xml")
+                        pathExt = @"Config\";
+
+                    if (!File.Exists(targWeb + @"\Assets\" + Path.GetFileName(filePath)))
+                        File.Copy(filePath, targWeb + @"\Assets\" + pathExt + Path.GetFileName(filePath));
+
+                    if (pathExt != "")
+                        filePaths.RemoveAt(ct);
                 }
+
+                // create manifest
+                var manifest = new ManifestFile(fileName, filePaths);
+                String manifestContent = manifest.TransformText();
+
+                File.WriteAllText(targWeb + @"\Assets\Scripts\" + fileName + ".contentproj.manifest.js", manifestContent);
             }
 
             // Create HTML file
@@ -97,21 +101,18 @@ namespace fuHTMLGen
 
                 File.WriteAllText(targWeb + @"\" + fileName + ".html", pageContent);
             }
-
+            
             // Create config file
-            var newConf = !File.Exists(targWeb + @"\Assets\Config\jsil_config.js");
+            var customConf = File.Exists(targDir + @"Assets\fusee_config.xml");
 
-            Console.WriteLine(customCSS == ""
-                      ? "// No custom config file found in Assets folder - creating a default one"
-                      : "// Found an custom config file in Assets folder - adding to output folder");
+            Console.WriteLine(!customConf
+                      ? "// No custom config file ('fusee_config.xml') found in Assets folder - using default settings"
+                      : "// Found an custom config file in Assets folder - applying settings to webbuild");
 
-            if (newConf)
-            {
-                var conf = new JsilConfig(targApp, customManifest);
-                String confContent = conf.TransformText();
+            var conf = new JsilConfig(targApp, targDir, customManifest, customConf);
+            String confContent = conf.TransformText();
 
-                File.WriteAllText(targWeb + @"\Assets\Config\jsil_config.js", confContent);
-            }
+            File.WriteAllText(targWeb + @"\Assets\Config\jsil_config.js", confContent);
 
             // Done
             Console.WriteLine("// Finished all tasks");

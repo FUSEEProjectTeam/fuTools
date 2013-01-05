@@ -22,7 +22,7 @@ namespace fuHTMLGen
             {"mp3", "Sound"},
 
             // script files
-            {"js", "Library"}
+            {"js", "Script"}
         };
 
         public static string GetFileType(string fileName)

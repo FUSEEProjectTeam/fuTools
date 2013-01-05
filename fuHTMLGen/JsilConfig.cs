@@ -18,20 +18,17 @@ namespace fuHTMLGen
     {
         public virtual string TransformText()
         {
-            this.Write(@"		var jsilConfig = {
-			libraryRoot: ""./Assets/Scripts/"",
-			manifestRoot: ""./Assets/Scripts/"",
-			scriptRoot: ""./Assets/Scripts/"",
-			
-			localStorage: true,
-			readOnlyStorage: true,
-			contentRoot: ""./"",
-			xna: ""3"",
-
-			showProgressBar: true,
-
-			manifests: [
-				""");
+            this.Write("\t\tvar jsilConfig = {\r\n\t\t\tlibraryRoot: \"./Assets/Scripts/\",\r\n\t\t\tmanifestRoot: \"./A" +
+                    "ssets/Scripts/\",\r\n\t\t\tscriptRoot: \"./Assets/Scripts/\",\r\n\t\t\t\r\n\t\t\tlocalStorage: tru" +
+                    "e,\r\n\t\t\treadOnlyStorage: true,\r\n\t\t\tcontentRoot: \"./\",\r\n\t\t\txna: \"3\",\r\n\r\n\t\t\tshowPro" +
+                    "gressBar: ");
+            
+            #line 12 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\JsilConfig.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_useProgrBar));
+            
+            #line default
+            #line hidden
+            this.Write(",\r\n\r\n\t\t\tmanifests: [\r\n\t\t\t\t\"");
             
             #line 15 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\JsilConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileName));
