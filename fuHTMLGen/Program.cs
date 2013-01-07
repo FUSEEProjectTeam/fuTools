@@ -7,7 +7,7 @@ namespace fuHTMLGen
 {
     class Program
     {
-        static private void CreateDirectories(String targWeb)
+        static private void CreateDirectories(string targWeb)
         {
             if (!Directory.Exists(targWeb + @"\Assets\"))
                 Directory.CreateDirectory(targWeb + @"\Assets\");
@@ -30,7 +30,7 @@ namespace fuHTMLGen
             var targWeb = args[1];
             var targApp = args[2];
 
-            String fileName = Path.GetFileNameWithoutExtension(targApp);
+            string fileName = Path.GetFileNameWithoutExtension(targApp);
 
             // Create directories
             CreateDirectories(targWeb);
@@ -53,19 +53,21 @@ namespace fuHTMLGen
             if (customManifest)
             {
                 List<string> filePaths = Directory.GetFiles(targDir + @"Assets\").ToList();
+                filePaths.Sort(string.Compare);
 
-                // load Fusee.Engine.Imp.WebGL.js first
+                // Load Fusee.Engine.Imp.WebGL.js first
                 if (File.Exists(targWeb + @"\Assets\Scripts\Fusee.Engine.Imp.WebGL.js"))
                     filePaths.Insert(0, targWeb + @"\Assets\Scripts\Fusee.Engine.Imp.WebGL.js");
                 else
                     return 1;
 
-                // copy to output folder
+                // Copy to output folder
                 for (var ct = filePaths.Count - 1; ct > 0; ct--)
                 {
-                    String pathExt = "";
-                    String filePath = filePaths.ElementAt(ct);
+                    string pathExt = "";
+                    string filePath = filePaths.ElementAt(ct);
 
+                    // style or config
                     if (Path.GetExtension(filePath) == ".css")
                     {
                         customCSS = Path.GetFileName(filePath);
@@ -75,6 +77,7 @@ namespace fuHTMLGen
                     if (Path.GetFileName(filePath) == "fusee_config.xml")
                         pathExt = @"Config\";
 
+                    // Copy files to output if they not exist yet
                     if (!File.Exists(targWeb + @"\Assets\" + pathExt + Path.GetFileName(filePath)))
                         File.Copy(filePath, targWeb + @"\Assets\" + pathExt + Path.GetFileName(filePath));
 
@@ -82,9 +85,9 @@ namespace fuHTMLGen
                         filePaths.RemoveAt(ct);
                 }
 
-                // create manifest
+                // Create manifest
                 var manifest = new ManifestFile(fileName, filePaths);
-                String manifestContent = manifest.TransformText();
+                string manifestContent = manifest.TransformText();
 
                 File.WriteAllText(targWeb + @"\Assets\Scripts\" + fileName + ".contentproj.manifest.js", manifestContent);
             }
@@ -97,7 +100,7 @@ namespace fuHTMLGen
                                       : "// Found an additional .css file in Assets folder - adding to HTML file");
 
                 var page = new WebPage(targApp, customCSS);
-                String pageContent = page.TransformText();
+                string pageContent = page.TransformText();
 
                 File.WriteAllText(targWeb + @"\" + fileName + ".html", pageContent);
             }
@@ -110,7 +113,7 @@ namespace fuHTMLGen
                       : "// Found an custom config file in Assets folder - applying settings to webbuild");
 
             var conf = new JsilConfig(targApp, targDir, customManifest, customConf);
-            String confContent = conf.TransformText();
+            string confContent = conf.TransformText();
 
             File.WriteAllText(targWeb + @"\Assets\Config\jsil_config.js", confContent);
 

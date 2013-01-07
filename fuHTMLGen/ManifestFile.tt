@@ -4,7 +4,7 @@ contentManifest["<#= _projName #>.contentproj"] = [
 	["<#= _fileTypes[0] #>",	"<#= _fileNames[0] #>",	{ "sizeBytes": <#= _fileSize[0] #> }],
     <# for (int i = 1; i < _fileCount-1; i++)
        { #>
-	["<#= _fileTypes[i] #>",	"Assets/<#= _fileNames[i] #>",	{ "sizeBytes": <#= _fileSize[i] #> }],
+["<#= _fileTypes[i] #>",	"Assets/<#= _fileNames[i] #>",	{<#= _fileFormats[i] #> "sizeBytes": <#= _fileSize[i] #> }],
     <# } #>
-	["<#= _fileTypes[_fileCount-1] #>",	"Assets/<#= _fileNames[_fileCount-1] #>",	{ "sizeBytes": <#= _fileSize[_fileCount-1] #> }]
+["<#= _fileTypes[_fileCount-1] #>",	"Assets/<#= _fileNames[_fileCount-1] #>",	{ "sizeBytes": <#= _fileSize[_fileCount-1] #> }]
 ];

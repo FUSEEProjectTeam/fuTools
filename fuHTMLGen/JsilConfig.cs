@@ -73,23 +73,23 @@ namespace fuHTMLGen
   		}
 
   		if (progressBar)
-    			progressBar.style.width = w.toString() + ""px"";
+    			progressBar.style.width = w.tostring() + ""px"";
 
   		if (progressText) {
-    			var progressString;
+    			var progressstring;
 
    			if (suffix === null) {
-     				progressString = prefix;
+     				progressstring = prefix;
     			} else {
-      				progressString = prefix + Math.floor(bytesLoaded) + suffix + "" / "" + Math.floor(bytesTotal) + suffix;
+      				progressstring = prefix + Math.floor(bytesLoaded) + suffix + "" / "" + Math.floor(bytesTotal) + suffix;
     			}
 
     			if (jsilConfig.formatProgressText)
-      				progressString = jsilConfig.formatProgressText(prefix, suffix, bytesLoaded, bytesTotal, progressString);
+      				progressstring = jsilConfig.formatProgressText(prefix, suffix, bytesLoaded, bytesTotal, progressstring);
 
-    			progressText.textContent = progressString;
-    			progressText.style.left = ((loadingProgress.clientWidth - progressText.clientWidth) / 2).toString() + ""px"";
-    			progressText.style.top = ((loadingProgress.clientHeight - progressText.clientHeight) / 2).toString() + ""px"";
+    			progressText.textContent = progressstring;
+    			progressText.style.left = ((loadingProgress.clientWidth - progressText.clientWidth) / 2).tostring() + ""px"";
+    			progressText.style.top = ((loadingProgress.clientHeight - progressText.clientHeight) / 2).tostring() + ""px"";
   		}
 	}
 };");
