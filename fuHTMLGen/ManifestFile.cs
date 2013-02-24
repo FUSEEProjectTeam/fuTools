@@ -12,7 +12,7 @@ namespace fuHTMLGen
     using System;
     
     
-    #line 1 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+    #line 1 "C:\Users\Fabian\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class ManifestFile : ManifestFileBase
     {
@@ -21,97 +21,55 @@ namespace fuHTMLGen
             this.Write("if (typeof (contentManifest) !== \"object\") { contentManifest = {}; };\r\ncontentMan" +
                     "ifest[\"");
             
-            #line 3 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 3 "C:\Users\Fabian\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_projName));
             
             #line default
             #line hidden
-            this.Write(".contentproj\"] = [\r\n\t[\"");
+            this.Write(".contentproj\"] = [\r\n    ");
             
-            #line 4 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_fileTypes[0]));
-            
-            #line default
-            #line hidden
-            this.Write("\",\t\"");
-            
-            #line 4 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_fileNames[0]));
-            
-            #line default
-            #line hidden
-            this.Write("\",\t{ \"sizeBytes\": ");
-            
-            #line 4 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_fileSize[0]));
-            
-            #line default
-            #line hidden
-            this.Write(" }],\r\n    ");
-            
-            #line 5 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
- for (int i = 1; i < _fileCount-1; i++)
+            #line 4 "C:\Users\Fabian\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+ for (int i = 0; i < _fileCount; i++)
        { 
             
             #line default
             #line hidden
             this.Write("[\"");
             
-            #line 7 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 6 "C:\Users\Fabian\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileTypes[i]));
             
             #line default
             #line hidden
-            this.Write("\",\t\"Assets/");
+            this.Write("\",\t\"");
             
-            #line 7 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 6 "C:\Users\Fabian\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileNames[i]));
             
             #line default
             #line hidden
             this.Write("\",\t{");
             
-            #line 7 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 6 "C:\Users\Fabian\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileFormats[i]));
             
             #line default
             #line hidden
             this.Write(" \"sizeBytes\": ");
             
-            #line 7 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 6 "C:\Users\Fabian\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileSize[i]));
             
             #line default
             #line hidden
             this.Write(" }],\r\n    ");
             
-            #line 8 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 7 "C:\Users\Fabian\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("[\"");
-            
-            #line 9 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_fileTypes[_fileCount-1]));
-            
-            #line default
-            #line hidden
-            this.Write("\",\t\"Assets/");
-            
-            #line 9 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_fileNames[_fileCount-1]));
-            
-            #line default
-            #line hidden
-            this.Write("\",\t{ \"sizeBytes\": ");
-            
-            #line 9 "C:\Users\Fabian\Dropbox\HS Furtwangen\4. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_fileSize[_fileCount-1]));
-            
-            #line default
-            #line hidden
-            this.Write(" }]\r\n];");
+            this.Write("];");
             return this.GenerationEnvironment.ToString();
         }
     }

@@ -55,14 +55,35 @@ namespace fuHTMLGen
                 List<string> filePaths = Directory.GetFiles(targDir + @"Assets\").ToList();
                 filePaths.Sort(string.Compare);
 
-                // Load Fusee.Engine.Imp.WebGL.js first
-                if (File.Exists(targWeb + @"\Assets\Scripts\Fusee.Engine.Imp.WebGL.js"))
-                    filePaths.Insert(0, targWeb + @"\Assets\Scripts\Fusee.Engine.Imp.WebGL.js");
+                // Load custom implementations first
+                var fileCount = 0;
+
+                //var exFile1 = File.Exists(targWeb + @"\Assets\Scripts\soundjs-0.4.0.min.js");
+                var exFile2 = File.Exists(targWeb + @"\Assets\Scripts\Fusee.Engine.Imp.WebAudio.js");
+                var exFile3 = File.Exists(targWeb + @"\Assets\Scripts\Fusee.Engine.Imp.WebGL.js");
+
+                //if (exFile1)
+                //{
+                //    filePaths.Insert(0, targWeb + @"\Assets\Scripts\soundjs-0.4.0.min.js");
+                //    fileCount++;
+                //}
+
+                if (exFile2)
+                {
+                    filePaths.Insert(fileCount, targWeb + @"\Assets\Scripts\Fusee.Engine.Imp.WebAudio.js");
+                    fileCount++;
+                }
+
+                if (exFile3)
+                {
+                    filePaths.Insert(fileCount, targWeb + @"\Assets\Scripts\Fusee.Engine.Imp.WebGL.js");
+                    fileCount++;
+                }
                 else
                     return 1;
 
                 // Copy to output folder
-                for (var ct = filePaths.Count - 1; ct > 0; ct--)
+                for (var ct = filePaths.Count - 1; ct > fileCount-1; ct--)
                 {
                     string pathExt = "";
                     string filePath = filePaths.ElementAt(ct);
@@ -86,7 +107,7 @@ namespace fuHTMLGen
                 }
 
                 // Create manifest
-                var manifest = new ManifestFile(fileName, filePaths);
+                var manifest = new ManifestFile(fileName, filePaths, fileCount);
                 string manifestContent = manifest.TransformText();
 
                 File.WriteAllText(targWeb + @"\Assets\Scripts\" + fileName + ".contentproj.manifest.js", manifestContent);

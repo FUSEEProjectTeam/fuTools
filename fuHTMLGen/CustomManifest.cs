@@ -15,7 +15,7 @@ namespace fuHTMLGen
         private readonly string[] _fileTypes;
         private readonly string[] _fileFormats;
 
-        public ManifestFile(string projName, ICollection<string> filePaths)
+        public ManifestFile(string projName, ICollection<string> filePaths, int specFiles)
         {
             _projName = projName;
             _fileCount = filePaths.Count;
@@ -26,43 +26,51 @@ namespace fuHTMLGen
             var fileFormatsList = new List<string>();
 
             for (var ct = 0; ct <= filePaths.Count - 1; ct++)
-            {
-                string filePath = filePaths.ElementAt(ct);
-
-                var fInfo = new FileInfo(filePath);
-                string fType = FileTypes.GetFileType(filePath);
-
-                // size, type
-                fileSizeList.Add(fInfo.Length);
-                fileTypesList.Add(fType);
-
-                // Sound files in more than one format
-                var doubleExt = false;
-
-                if ((fType == "Sound") && (ct < filePaths.Count - 1))
                 {
-                    string fileName1 = Path.GetFileNameWithoutExtension(filePath);
-                    string fileName2 = Path.GetFileNameWithoutExtension(filePaths.ElementAt(ct + 1));
+                    string filePath = filePaths.ElementAt(ct);
 
-                    if (fileName1 == fileName2)
+                    var fInfo = new FileInfo(filePath);
+                    string fType = FileTypes.GetFileType(filePath);
+
+                    // size, type
+                    fileSizeList.Add(fInfo.Length);
+                    fileTypesList.Add(fType);
+
+                    // special files
+                    if (ct < specFiles)
                     {
-                        string ext1 = Path.GetExtension(filePath);
-                        string ext2 = Path.GetExtension(filePaths.ElementAt(ct + 1));
+                        fileNamesList.Add(Path.GetFileName(filePath));
+                        fileFormatsList.Add(" ");
+                        continue;
+                    }
 
-                        fileFormatsList.Add("\"formats\": [\"" + ext1 + "\", \"" + ext2 + "\"],	");
-                        fileNamesList.Add(fileName1);
+                    // Sound files in more than one format
+                    var doubleExt = false;
 
-                        ct++;
-                        doubleExt = true;
+                    if ((fType == "Sound") && (ct < filePaths.Count - 1))
+                    {
+                        string fileName1 = Path.GetFileNameWithoutExtension(filePath);
+                        string fileName2 = Path.GetFileNameWithoutExtension(filePaths.ElementAt(ct + 1));
+
+                        if (fileName1 == fileName2)
+                        {
+                            string ext1 = Path.GetExtension(filePath);
+                            string ext2 = Path.GetExtension(filePaths.ElementAt(ct + 1));
+
+                            fileFormatsList.Add(" \"formats\": [\"" + ext1 + "\", \"" + ext2 + "\"],	");
+                            fileNamesList.Add("Assets/" + fileName1);
+
+                            ct++;
+                            doubleExt = true;
+                        }
+                    }
+
+                    if (!doubleExt)
+                    {
+                        fileNamesList.Add("Assets/" + Path.GetFileName(filePath));
+                        fileFormatsList.Add(" ");
                     }
                 }
-
-                if (!doubleExt)
-                {
-                    fileNamesList.Add(Path.GetFileName(filePath));
-                    fileFormatsList.Add("	");
-                }
-            }
 
             // Convert to Array
             _fileCount = fileNamesList.Count;
