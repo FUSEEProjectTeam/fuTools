@@ -28,7 +28,7 @@ namespace fuHTMLGen
             {
                 var xmlSer = new XmlSerializer(typeof(ConfXMLReader));
 
-                StreamReader confReader = File.OpenText(targDir + @"Assets\fusee_config.xml");
+                StreamReader confReader = File.OpenText(Path.Combine(targDir, "Assets", "fusee_config.xml"));
                 var conf = (ConfXMLReader)xmlSer.Deserialize(confReader);
                 confReader.Close();
 
