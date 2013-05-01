@@ -12,48 +12,55 @@ namespace fuProjectGen
     using System;
     
     
-    #line 1 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFile.tt"
+    #line 1 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFilePt2.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public partial class SolutionFile : SolutionFileBase
+    public partial class SolutionFilePt2 : SolutionFilePt2Base
     {
         public virtual string TransformText()
         {
-            this.Write("Project(\"{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}\") = \"");
+            this.Write("\t\t");
             
-            #line 2 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_name));
-            
-            #line default
-            #line hidden
-            this.Write("\", \"src\\Engine\\Examples\\");
-            
-            #line 2 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_name));
-            
-            #line default
-            #line hidden
-            this.Write("\\");
-            
-            #line 2 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_name));
-            
-            #line default
-            #line hidden
-            this.Write(".csproj\", \"");
-            
-            #line 2 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFile.tt"
+            #line 2 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFilePt2.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_guid));
             
             #line default
             #line hidden
-            this.Write(@"""
-	ProjectSection(ProjectDependencies) = postProject
-		{4A183140-3153-4F7E-A692-F4E3EF2CFA0A} = {4A183140-3153-4F7E-A692-F4E3EF2CFA0A}
-		{7E796695-4174-471A-BBE8-3CAF39904588} = {7E796695-4174-471A-BBE8-3CAF39904588}
-		{F7AD2BB5-D2B0-4697-BDDB-4CC26152A6B6} = {F7AD2BB5-D2B0-4697-BDDB-4CC26152A6B6}
-		{0A06B3EA-5934-4373-854A-B4D6E7E1FE16} = {0A06B3EA-5934-4373-854A-B4D6E7E1FE16}
-	EndProjectSection
-EndProject");
+            this.Write(".Debug|x86.ActiveCfg = Debug|x86\r\n\t\t");
+            
+            #line 3 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFilePt2.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_guid));
+            
+            #line default
+            #line hidden
+            this.Write(".Debug|x86.Build.0 = Debug|x86\r\n\t\t");
+            
+            #line 4 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFilePt2.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_guid));
+            
+            #line default
+            #line hidden
+            this.Write(".Debug+Web|x86.ActiveCfg = Debug+Web|x86\r\n\t\t");
+            
+            #line 5 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFilePt2.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_guid));
+            
+            #line default
+            #line hidden
+            this.Write(".Debug+Web|x86.Build.0 = Debug+Web|x86\r\n\t\t");
+            
+            #line 6 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFilePt2.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_guid));
+            
+            #line default
+            #line hidden
+            this.Write(".Release|x86.ActiveCfg = Release|x86\r\n\t\t");
+            
+            #line 7 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFilePt2.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_guid));
+            
+            #line default
+            #line hidden
+            this.Write(".Release|x86.Build.0 = Release|x86");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -65,7 +72,7 @@ EndProject");
     /// Base class for this transformation
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public class SolutionFileBase
+    public class SolutionFilePt2Base
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;
