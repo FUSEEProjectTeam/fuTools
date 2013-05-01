@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using fuProjectGen.Templates;
 
 namespace fuProjectGen
 {
@@ -103,15 +104,16 @@ namespace fuProjectGen
             Console.WriteLine("##                                         ##");
             Console.WriteLine("## WARNING: Always backup your Engine.sln! ##");
             Console.WriteLine("##                                         ##");
-            Console.WriteLine("#############################################");
-            Console.WriteLine();
-            Console.WriteLine();
+            Console.WriteLine("#############################################\n\n");
 
             try
             {
                 // pre-checks
                 if (!File.Exists(@"../Engine.sln"))
-                    Error("Couldn't find ../Engine.sln!");
+                    Error("Could not find ../Engine.sln!");
+
+                if (!Directory.Exists(@"../src/Engine/Examples"))
+                    Error("Could not find ../src/Engine/Examples!");
 
                 // backup of Engine.sln
                 File.Copy(@"../Engine.sln", @"../Engine.orig", true);
@@ -131,6 +133,34 @@ namespace fuProjectGen
 
                 // get GUID for new project
                 var guid = GetValidGUID();
+
+                // create project directories
+                Directory.CreateDirectory(@"../src/Engine/Examples/" + projectName);
+
+                if (!Directory.Exists(@"../src/Engine/Examples/" + projectName))
+                    Error("Could not create a directory for the project!");
+
+                Directory.CreateDirectory(@"../src/Engine/Examples/" + projectName + @"/Properties");
+                Directory.CreateDirectory(@"../src/Engine/Examples/" + projectName + @"/Assets");
+
+                // create files from template
+                var mainFile = new MainFile(projectName);
+                var mainFileContent = mainFile.TransformText();
+
+                var projFile = new ProjFile(projectName);
+                var projFileContent = projFile.TransformText();
+
+                var assemblyFile = new AssemblyFile(projectName);
+                var assemblyFileContent = assemblyFile.TransformText();
+
+                File.WriteAllText(@"../src/Engine/Examples/" + projectName + @"/Main.cs", mainFileContent);
+                File.WriteAllText(@"../src/Engine/Examples/" + projectName + @"/" + projectName + @".csproj", projFileContent);
+                File.WriteAllText(@"../src/Engine/Examples/" + projectName + @"/Properties/AssemblyInfo.cs", assemblyFileContent);
+
+                if (!File.Exists(@"../src/Engine/Examples/" + projectName + @"/Main.cs") ||
+                    !File.Exists(@"../src/Engine/Examples/" + projectName + @"/" + projectName + @".csproj") ||
+                    !File.Exists(@"../src/Engine/Examples/" + projectName + @"/Properties/AssemblyInfo.cs"))
+                    Error("Could not create necessary files for the project!");
 
                 // add project to Engine.sln (Part1)
                 var globalLine = GetLine("Global");

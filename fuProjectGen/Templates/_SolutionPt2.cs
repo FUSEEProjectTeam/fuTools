@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace fuProjectGen
+﻿namespace fuProjectGen.Templates
 {
     partial class SolutionFilePt2
     {

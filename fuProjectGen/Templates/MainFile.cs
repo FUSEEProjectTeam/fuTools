@@ -7,53 +7,67 @@
 //     der Code erneut generiert wird.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace fuProjectGen
+namespace fuProjectGen.Templates
 {
     using System;
     
     
-    #line 1 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFilePt1.tt"
+    #line 1 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\Templates\MainFile.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public partial class SolutionFilePt1 : SolutionFilePt1Base
+    public partial class MainFile : MainFileBase
     {
         public virtual string TransformText()
         {
-            this.Write("Project(\"{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}\") = \"");
+            this.Write("using Fusee.Engine;\r\nusing Fusee.SceneManagement;\r\nusing Fusee.Math;\r\n\r\nnamespace" +
+                    " Examples.");
             
-            #line 2 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFilePt1.tt"
+            #line 6 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\Templates\MainFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_name));
             
             #line default
             #line hidden
-            this.Write("\", \"src\\Engine\\Examples\\");
+            this.Write("\r\n{\r\n    public class ");
             
-            #line 2 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFilePt1.tt"
+            #line 8 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\Templates\MainFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_name));
             
             #line default
             #line hidden
-            this.Write("\\");
+            this.Write(@" : RenderCanvas
+    {
+        // is called on startup
+        public override void Init()
+        {
+            RC.ClearColor = new float4(0.1f, 0.1f, 0.5f, 1);
+        }
+
+        // is called once a frame
+        public override void RenderAFrame()
+        {
+            RC.Clear(ClearFlags.Color | ClearFlags.Depth);
+
+            Present();
+        }
+
+        // is called when the window was resized
+        public override void Resize()
+        {
+            RC.Viewport(0, 0, Width, Height);
+
+            var aspectRatio = Width / (float)Height;
+            RC.Projection = float4x4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 1, 10000);
+        }
+
+        public static void Main()
+        {
+            var app = new ");
             
-            #line 2 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFilePt1.tt"
+            #line 35 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\Templates\MainFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_name));
             
             #line default
             #line hidden
-            this.Write(".csproj\", \"");
-            
-            #line 2 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\SolutionFilePt1.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_guid));
-            
-            #line default
-            #line hidden
-            this.Write(@"""
-	ProjectSection(ProjectDependencies) = postProject
-		{4A183140-3153-4F7E-A692-F4E3EF2CFA0A} = {4A183140-3153-4F7E-A692-F4E3EF2CFA0A}
-		{7E796695-4174-471A-BBE8-3CAF39904588} = {7E796695-4174-471A-BBE8-3CAF39904588}
-		{F7AD2BB5-D2B0-4697-BDDB-4CC26152A6B6} = {F7AD2BB5-D2B0-4697-BDDB-4CC26152A6B6}
-		{0A06B3EA-5934-4373-854A-B4D6E7E1FE16} = {0A06B3EA-5934-4373-854A-B4D6E7E1FE16}
-	EndProjectSection
-EndProject");
+            this.Write("();\r\n            app.Run();\r\n        }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -65,7 +79,7 @@ EndProject");
     /// Base class for this transformation
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public class SolutionFilePt1Base
+    public class MainFileBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;
