@@ -13,12 +13,12 @@ namespace fuHTMLGen
 
         private readonly string _useProgrBar;
 
-        public JsilConfig(string targApp, string targDir, bool customManifest, bool customConf)
+        public JsilConfig(string targApp, string targDir, bool customConf)
         {
             _fileName = Path.GetFileName(targApp);
             _fileNameWOext = Path.GetFileNameWithoutExtension(targApp);
 
-            _customManifest = (customManifest) ? _fileNameWOext + ".contentproj" : "";
+            _customManifest = _fileNameWOext + ".contentproj";
 
             if (!customConf)
             {

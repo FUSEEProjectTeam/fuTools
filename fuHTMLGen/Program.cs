@@ -50,33 +50,39 @@ namespace fuHTMLGen
                                   ? "// Found an Assets folder - collecting all and write manifest"
                                   : "// No Assets folder - no additional files will be added");
 
+            List<string> filePaths;
+
             if (customManifest)
             {
-                List<string> filePaths = Directory.GetFiles(Path.Combine(targDir, "Assets")).ToList();
+                filePaths = Directory.GetFiles(Path.Combine(targDir, "Assets")).ToList();
                 filePaths.Sort(string.Compare);
+            } else
+                filePaths = new List<string>();
 
-                // Load custom implementations first
-                var fileCount = 0;
+            // Load custom implementations first
+            var fileCount = 0;
 
-                var exFile1 = File.Exists(Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebAudio.js"));
-                var exFile2 = File.Exists(Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebGL.js"));
+            var exFile1 = File.Exists(Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebAudio.js"));
+            var exFile2 = File.Exists(Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebGL.js"));
 
-                if (exFile1)
-                {
-                    filePaths.Insert(fileCount, Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebAudio.js"));
-                    fileCount++;
-                }
-                
-                if (exFile2)
-                {
-                    filePaths.Insert(fileCount, Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebGL.js"));
-                    fileCount++;
-                }
-                else
-                    return 1;
+            if (exFile1)
+            {
+                filePaths.Insert(fileCount, Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebAudio.js"));
+                fileCount++;
+            }
 
+            if (exFile2)
+            {
+                filePaths.Insert(fileCount, Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebGL.js"));
+                fileCount++;
+            }
+            else
+                return 1;
+
+            if (customManifest)
+            {
                 // Copy to output folder
-                for (var ct = filePaths.Count - 1; ct > fileCount-1; ct--)
+                for (var ct = filePaths.Count - 1; ct > fileCount - 1; ct--)
                 {
                     string pathExt = "";
                     string filePath = filePaths.ElementAt(ct);
@@ -100,15 +106,15 @@ namespace fuHTMLGen
                     if (pathExt != "")
                         filePaths.RemoveAt(ct);
                 }
-
-                // Create manifest
-                var manifest = new ManifestFile(fileName, filePaths, fileCount);
-                string manifestContent = manifest.TransformText();
-
-                File.WriteAllText(Path.Combine(targWeb, "Assets", "Scripts", fileName + ".contentproj.manifest.js"),
-                                  manifestContent);
             }
 
+            // Create manifest
+            var manifest = new ManifestFile(fileName, filePaths, fileCount);
+            string manifestContent = manifest.TransformText();
+
+            File.WriteAllText(Path.Combine(targWeb, "Assets", "Scripts", fileName + ".contentproj.manifest.js"),
+                              manifestContent);
+            
             // Create HTML file
             if (newHTML)
             {
@@ -129,7 +135,7 @@ namespace fuHTMLGen
                       ? "// No custom config file ('fusee_config.xml') found in Assets folder - using default settings"
                       : "// Found an custom config file in Assets folder - applying settings to webbuild");
 
-            var conf = new JsilConfig(targApp, targDir, customManifest, customConf);
+            var conf = new JsilConfig(targApp, targDir, customConf);
             string confContent = conf.TransformText();
 
             File.WriteAllText(Path.Combine(targWeb, "Assets", "Config", "jsil_config.js"), confContent);
