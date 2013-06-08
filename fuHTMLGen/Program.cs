@@ -7,8 +7,16 @@ namespace fuHTMLGen
 {
     class Program
     {
-        static private void CreateDirectories(string targWeb)
-        { 
+        private static bool _debugMode;
+
+        private static void DebugMode(string msg)
+        {
+            if (_debugMode)
+                Console.WriteLine("// " + msg);
+        }
+
+        private static void CreateDirectories(string targWeb)
+        {
             if (!Directory.Exists(Path.Combine(targWeb, "Assets")))
                 Directory.CreateDirectory(Path.Combine(targWeb, "Assets"));
 
@@ -24,11 +32,15 @@ namespace fuHTMLGen
 
         static int Main(string[] args)
         {
-            if (args.Length != 3) return 1;
+            if (args.Length < 3) return 1;
 
             var targDir = args[0];
             var targWeb = args[1];
             var targApp = args[2];
+
+            //if (args.Length == 4)
+            //    _debugMode = (args[3] == "-d");
+            _debugMode = true;
 
             string fileName = Path.GetFileNameWithoutExtension(targApp);
 
@@ -63,21 +75,41 @@ namespace fuHTMLGen
             var fileCount = 0;
 
             var exFile1 = File.Exists(Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebAudio.js"));
-            var exFile2 = File.Exists(Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebGL.js"));
+            var exFile2 = File.Exists(Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebNet.js"));
+            var exFile3 = File.Exists(Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebGL.js"));
 
             if (exFile1)
             {
                 filePaths.Insert(fileCount, Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebAudio.js"));
                 fileCount++;
             }
+            else
+            {
+                DebugMode("Couldn't find Fusee.Engine.Imp.WebAudio.js");
+                return 1;
+            }
 
             if (exFile2)
+            {
+                filePaths.Insert(fileCount, Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebNet.js"));
+                fileCount++;
+            }
+            else
+            {
+                DebugMode("Couldn't find Fusee.Engine.Imp.WebNet.js");
+                return 1;
+            }
+
+            if (exFile3)
             {
                 filePaths.Insert(fileCount, Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebGL.js"));
                 fileCount++;
             }
             else
+            {
+                DebugMode("Couldn't find Fusee.Engine.Imp.WebGL.js");
                 return 1;
+            }
 
             if (customManifest)
             {
