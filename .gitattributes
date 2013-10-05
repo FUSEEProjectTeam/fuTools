@@ -20,9 +20,3 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
-<<<<<<< HEAD
-=======
-
-# FUSEE Custom
-*.model	-diff
->>>>>>> 6829eb9... .gitignore/.gitattributes

@@ -1,9 +1,11 @@
-<<<<<<< HEAD
-fuHTMLGen
-===========
-=======
-fuProjectGen
-============
+Tools to use with Fusee:
 
-Tool for creating custom projects in/with FUSEE
->>>>>>> 9f72768... Initial commit
+a) fuHTMLGen
+
+	Tool to generate a default HTML file for webbuilds
+
+b) fuProjectGen
+
+	Tool for creating custom projects in/with Fusee
+
+===========

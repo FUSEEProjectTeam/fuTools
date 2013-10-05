@@ -7,69 +7,120 @@
 //     der Code erneut generiert wird.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace fuHTMLGen
+namespace fuProjectGen.Templates
 {
     using System;
     
     
-    #line 1 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+    #line 1 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\Templates\ProjFile.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public partial class ManifestFile : ManifestFileBase
+    public partial class ProjFile : ProjFileBase
     {
         public virtual string TransformText()
         {
-            this.Write("if (typeof (contentManifest) !== \"object\") { contentManifest = {}; };\r\ncontentMan" +
-                    "ifest[\"");
+            this.Write(@"<?xml version=""1.0"" encoding=""utf-8""?>
+<Project ToolsVersion=""4.0"" DefaultTargets=""Build"" xmlns=""http://schemas.microsoft.com/developer/msbuild/2003"">
+  <PropertyGroup>
+    <SolutionDir Condition=""$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'"">$(ProjectDir)../../../../</SolutionDir>
+    <Configuration Condition="" '$(Configuration)' == '' "">Debug</Configuration>
+    <Platform Condition="" '$(Platform)' == '' "">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{55C8E245-79A5-4E23-838F-BA959B892197}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Examples.");
             
-            #line 3 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_projName));
-            
-            #line default
-            #line hidden
-            this.Write(".contentproj\"] = [\r\n    ");
-            
-            #line 4 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
- for (int i = 0; i < _fileCount; i++)
-       { 
-            
-            #line default
-            #line hidden
-            this.Write("[\"");
-            
-            #line 6 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_fileTypes[i]));
+            #line 13 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\Templates\ProjFile.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_name));
             
             #line default
             #line hidden
-            this.Write("\",\t\"");
+            this.Write("</RootNamespace>\r\n    <AssemblyName>Examples.");
             
-            #line 6 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_fileNames[i]));
-            
-            #line default
-            #line hidden
-            this.Write("\",\t{");
-            
-            #line 6 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_fileFormats[i]));
+            #line 14 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\Templates\ProjFile.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_name));
             
             #line default
             #line hidden
-            this.Write(" \"sizeBytes\": ");
+            this.Write(@"</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="" '$(Configuration)|$(Platform)' == 'Debug|x86' "">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\Bin\Debug\Examples\");
             
-            #line 6 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_fileSize[i]));
+            #line 24 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\Templates\ProjFile.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_name));
             
             #line default
             #line hidden
-            this.Write(" }],\r\n    ");
+            this.Write(@"\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="" '$(Configuration)|$(Platform)' == 'Release|x86' "">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\Bin\Release\Examples\");
             
-            #line 7 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
- } 
+            #line 33 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\Templates\ProjFile.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_name));
             
             #line default
             #line hidden
-            this.Write("];");
+            this.Write(@"\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=""'$(Configuration)|$(Platform)' == 'Debug+Web|x86'"">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\Bin\Debug\Examples\");
+            
+            #line 46 "H:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuProjectGen\fuProjectGen\Templates\ProjFile.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_name));
+            
+            #line default
+            #line hidden
+            this.Write("\\</OutputPath>\r\n    <DefineConstants>DEBUG;TRACE</DefineConstants>\r\n    <ErrorRep" +
+                    "ort>prompt</ErrorReport>\r\n    <WarningLevel>4</WarningLevel>\r\n  </PropertyGroup>" +
+                    "\r\n  <ItemGroup>\r\n    <Compile Include=\"Main.cs\" />\r\n    <Compile Include=\"Proper" +
+                    "ties\\AssemblyInfo.cs\" />\r\n  </ItemGroup>\r\n  <ItemGroup>\r\n    <Folder Include=\"As" +
+                    "sets\\\" />\r\n  </ItemGroup>\r\n  <ItemGroup>\r\n    <ProjectReference Include=\"$(Solut" +
+                    "ionDir)src\\Engine\\Common\\Common.csproj\">\r\n      <Project>{DFD770F6-4222-4255-AAE" +
+                    "0-DCACDC7B21EB}</Project>\r\n      <Name>Common</Name>\r\n    </ProjectReference>\r\n " +
+                    "   <ProjectReference Include=\"$(SolutionDir)src\\Engine\\Core\\Core.csproj\">\r\n     " +
+                    " <Project>{1228EB3F-8BCC-453F-8A2E-D9246495A118}</Project>\r\n      <Name>Core</Na" +
+                    "me>\r\n    </ProjectReference>\r\n    <ProjectReference Include=\"$(SolutionDir)src\\M" +
+                    "ath\\Core\\Math.Core.csproj\">\r\n      <Project>{E95FA1C8-6491-4B4B-BBE1-EDA6B16B2C6" +
+                    "A}</Project>\r\n      <Name>Math.Core</Name>\r\n    </ProjectReference>\r\n    <Projec" +
+                    "tReference Include=\"..\\..\\Components\\SceneManagement\\SceneManagement.csproj\">\r\n " +
+                    "     <Project>{81B3A7F0-F8E4-45D0-BE69-B869C9B1803E}</Project>\r\n      <Name>Scen" +
+                    "eManagement</Name>\r\n    </ProjectReference>\r\n  </ItemGroup>\r\n  <ItemGroup>\r\n    " +
+                    "<Reference Include=\"System\" />\r\n  </ItemGroup>\r\n  <Import Project=\"$(MSBuildTool" +
+                    "sPath)/Microsoft.CSharp.targets\" />\r\n  <PropertyGroup>\r\n    <PostBuildEvent>\r\n  " +
+                    "  </PostBuildEvent>\r\n  </PropertyGroup>\r\n  <Target Name=\"Clean\">\r\n    <Exec Cond" +
+                    "ition=\" \'$(OS)\' == \'Windows_NT\' And Exists(\'$(OutputPath)\') \" Command=\'rd /s /q " +
+                    "\"$(OutputPath)\"\' />\r\n    <Exec Condition=\" \'$(OS)\' != \'Windows_NT\' And Exists(\'$" +
+                    "(OutputPath)\') \" Command=\'rm \"$(OutputPath)\" -r -f\' />\r\n  </Target>\r\n  <Import P" +
+                    "roject=\"$(SolutionDir)Fusee_Windows.targets\" Condition=\"\'$(PostBuildEvent)\' == \'" +
+                    "\' And \'$(OS)\' == \'Windows_NT\' \" />\r\n  <Import Project=\"$(SolutionDir)Fusee_Linux" +
+                    ".targets\" Condition=\"\'$(PostBuildEvent)\' == \'\' And \'$(OS)\' != \'Windows_NT\' \" />\r" +
+                    "\n</Project>");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -81,7 +132,7 @@ namespace fuHTMLGen
     /// Base class for this transformation
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public class ManifestFileBase
+    public class ProjFileBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;
