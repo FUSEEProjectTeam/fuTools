@@ -1,0 +1,1 @@
+@fuAssemblyInfo\bin\Debug\fuAssemblyInfo.exe "..\..\dev\Bin\Debug" "..\..\dev\src\Engine\Imp\WebGL\Scripts\Fusee.Engine.Imp.WebGL.js" "..\..\dev\src\Engine\Imp\WebAudio\Fusee.Engine.Imp.WebAudio.js" "..\..\dev\src\Engine\Imp\WebNet\Fusee.Engine.Imp.WebNet.js"
