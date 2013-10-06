@@ -6,33 +6,17 @@ using Mono.Cecil;
 
 namespace fuAssemblyInfo
 {
-    internal class Program
+    internal static class Program
     {
         private static void Error(string msg)
         {
-            var action = "Press enter to exit.\n";
+            Console.WriteLine("---------------------------------------------" + Environment.NewLine);
+            Console.WriteLine(">> ERROR: " + msg + Environment.NewLine);
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine(Environment.NewLine + Environment.NewLine);
+            Console.WriteLine("Press ENTER to exit." + Environment.NewLine);
 
-            try
-            {
-                if (File.Exists(@"../Engine.orig"))
-                {
-                    File.Copy(@"../Engine.orig", @"../Engine.sln", true);
-                    File.Delete(@"../Engine.orig");
-
-                    action = "Engine.sln restored. " + action;
-                }
-            }
-            catch (Exception e)
-            {
-                msg += "\n\n" + e.Message;
-            }
-
-            Console.WriteLine("---------------------------------------------\n");
-            Console.WriteLine(">> ERROR: " + msg + "\n");
-            Console.WriteLine("---------------------------------------------\n\n");
-            Console.WriteLine(action);
             Console.ReadLine();
-
             Environment.Exit(1);
         }
 
@@ -42,13 +26,15 @@ namespace fuAssemblyInfo
             Console.WriteLine("##                                         ##");
             Console.WriteLine("##       > FUSEE - fuAssemblyInfo <        ##");
             Console.WriteLine("##                                         ##");
-            Console.WriteLine("#############################################\n\n");
+            Console.WriteLine("#############################################");
+            Console.WriteLine(Environment.NewLine + Environment.NewLine);
 
             try
             {
                 // pre-checks
-                if (args.Count() < 2)
-                    Error("Not enough arguments!\n\n> fuAssemblyInfo.exe PathToCommonAssembly JSFile1 [JSFile2 ...]");
+                if (args.Length < 2)
+                    Error("Not enough arguments!" + Environment.NewLine + Environment.NewLine +
+                          "> fuAssemblyInfo.exe PathToCommonAssembly JSFile1 [JSFile2 ...]");
 
                 if (!Directory.Exists(args[0]))
                     Error("Directory doesn't exist!");
@@ -56,7 +42,7 @@ namespace fuAssemblyInfo
                 if (!File.Exists(Path.Combine(args[0], "Fusee.Engine.Common.dll")))
                     Error("File 'Fusee.Engine.Common.dll' not found!");
 
-                for (int i = 1; i < args.Count(); i++)
+                for (int i = 1; i < args.Length; i++)
                     if (!File.Exists(args[i]))
                         Error("File '" + args[i] + "' not found!");
 
@@ -64,60 +50,58 @@ namespace fuAssemblyInfo
                 var clList = new List<string>();
                 var mtList = new List<string>();
 
-                for (int i = 1; i < args.Count(); i++)
-                {
-                    var fInfo = new FileInfo(args[i]);
-                    StreamReader reader = fInfo.OpenText();
-
-                    string line;
-                    var clCheckNext = false;
-                    var mtCheckNext = false;
-
-                    while ((line = reader.ReadLine()) != null)
+                for (int i = 1; i < args.Length; i++)
+                    using (var reader = new FileInfo(args[i]).OpenText())
                     {
-                        // classes
-                        var clIndex = line.IndexOf("$.ImplementInterfaces", StringComparison.OrdinalIgnoreCase);
-                        if (clIndex > -1)
+                        string line;
+                        var clCheckNext = false;
+                        var mtCheckNext = false;
+
+                        while ((line = reader.ReadLine()) != null)
                         {
-                            clCheckNext = true;
-                            continue;
-                        }
+                            // classes
+                            var clIndex = line.IndexOf("$.ImplementInterfaces", StringComparison.OrdinalIgnoreCase);
+                            if (clIndex > -1)
+                            {
+                                clCheckNext = true;
+                                continue;
+                            }
 
-                        if (clCheckNext)
-                        {
-                            var clIndex2 = line.IndexOf("TypeRef(", StringComparison.OrdinalIgnoreCase);
+                            if (clCheckNext)
+                            {
+                                var clIndex2 = line.IndexOf("TypeRef(", StringComparison.OrdinalIgnoreCase);
 
-                            var clTmp = line.Remove(0, clIndex2 + 9);
-                            clTmp = clTmp.Substring(0, clTmp.Length - 2);
-                            clList.Add(clTmp.Trim());
+                                var clTmp = line.Remove(0, clIndex2 + 9);
+                                clTmp = clTmp.Substring(0, clTmp.Length - 2);
+                                clList.Add(clTmp.Trim());
 
-                            clCheckNext = false;
-                        }
+                                clCheckNext = false;
+                            }
 
-                        // methods
-                        var mtIndex = line.IndexOf("JSIL.MethodSignature", StringComparison.OrdinalIgnoreCase);
-                        if (mtIndex > -1)
-                        {
-                            mtCheckNext = true;
-                            continue;
-                        }
+                            // methods
+                            var mtIndex = line.IndexOf("JSIL.MethodSignature", StringComparison.OrdinalIgnoreCase);
+                            if (mtIndex > -1)
+                            {
+                                mtCheckNext = true;
+                                continue;
+                            }
 
-                        if (mtCheckNext)
-                        {
-                            var mtIndex2 = line.IndexOf("function", StringComparison.OrdinalIgnoreCase);
-                            if (mtIndex2 == -1) continue;
-                            
-                            var mtTmp = line.Remove(0, mtIndex2 + 9);
-                            mtIndex2 = mtTmp.IndexOf("(", StringComparison.OrdinalIgnoreCase);
-                            mtTmp = mtTmp.Substring(0, mtIndex2);
+                            if (mtCheckNext)
+                            {
+                                var mtIndex2 = line.IndexOf("function", StringComparison.OrdinalIgnoreCase);
+                                if (mtIndex2 == -1) continue;
 
-                            mtTmp = mtTmp.Replace(" ", "");
-                            mtList.Add(mtTmp.Trim());
+                                var mtTmp = line.Remove(0, mtIndex2 + 9);
+                                mtIndex2 = mtTmp.IndexOf('(');
+                                mtTmp = mtTmp.Substring(0, mtIndex2);
 
-                            mtCheckNext = false;
+                                mtTmp = mtTmp.Replace(" ", String.Empty);
+                                mtList.Add(mtTmp.Trim());
+
+                                mtCheckNext = false;
+                            }
                         }
                     }
-                }
 
                 // read assembly and cycle through interface methods
                 var assembly = AssemblyDefinition.ReadAssembly(Path.Combine(args[0], "Fusee.Engine.Common.dll"));
@@ -126,13 +110,14 @@ namespace fuAssemblyInfo
                     if (type.IsInterface)
                     {
                         string clName = type.FullName;
+                        string clNameDisp = clName;
 
-                        while (clName.Length < 40)
-                            clName += ".";
+                        while (clNameDisp.Length < 40)
+                            clNameDisp += ".";
 
-                        Console.Write("Interface: " + clName);
+                        Console.Write("Interface: " + clNameDisp);
 
-                        if (clList.IndexOf(type.FullName) > -1)
+                        if (clList.IndexOf(clName) > -1)
                         {
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.SetCursorPosition(40, Console.CursorTop);
@@ -151,10 +136,13 @@ namespace fuAssemblyInfo
                         foreach (var interMt in type.Methods)
                         {
                             var mtName = interMt.Name;
+                            var mtAttr = interMt.CustomAttributes;
 
-                            if (interMt.CustomAttributes.Count > 0)
-                                if (interMt.CustomAttributes[0].AttributeType.Name == "JSChangeName")
-                                    mtName = interMt.CustomAttributes[0].ConstructorArguments[0].Value.ToString();
+                            if (mtAttr.Count > 0)
+                            {
+                                if (mtAttr[0].AttributeType.Name == "JSChangeName")
+                                    mtName = mtAttr[0].ConstructorArguments[0].Value.ToString();
+                            }
 
                             var mtNameDisp = mtName;
 
@@ -183,14 +171,15 @@ namespace fuAssemblyInfo
                         Console.WriteLine();
                     }
 
-                Console.WriteLine("\n\nDone.");
+                Console.WriteLine(Environment.NewLine + Environment.NewLine);
+                Console.WriteLine("Done. Press ENTER to exit." + Environment.NewLine);
                 Console.ReadLine();
 
                 Environment.Exit(0);
             }
             catch (Exception e)
             {
-                Error("Creating new project failed!\n\n" + e.Message);
+                Error("Checking interfaces failed!" + Environment.NewLine + Environment.NewLine + e.Message);
             }
         }
     }
