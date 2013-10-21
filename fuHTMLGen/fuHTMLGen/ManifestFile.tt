@@ -1,4 +1,35 @@
 ﻿<#@ template language="C#" #>
+/* The size of these files were reduced. The following function fixes all references. */
+/* Todo: Find references without using string operations */
+
+var $customMSCore = "$asm04";
+var $customSys = "$asm05";
+var $customSysConf = "$asm06";
+var $customSysCore = "$asm07";
+var $customSysNum = "$asm08";
+var $customSysXml = "$asm09";
+var $customSysSec = "$asm0D";
+
+var id = 0;
+var next = this["$asm00"];
+
+while (next) {
+    var nextString = next.toString();
+
+    if (nextString.indexOf("mscorlib") != -1) $customMSCore = next;
+    if (nextString.indexOf("System,") != -1) $customSys = next;
+    if (nextString.indexOf("System.Configuration") != -1) $customSysConf = next;
+    if (nextString.indexOf("System.Core") != -1) $customSysCore = next;
+    if (nextString.indexOf("System.Numerics") != -1) $customSysNum = next;
+    if (nextString.indexOf("System.Xml") != -1) $customSysXml = next;
+    if (nextString.indexOf("System.Security") != -1) $customSysSec = next;	
+
+    if (++id < 16)
+        next = this["$asm0" + id.toString(16).toUpperCase()];
+    else
+        next = this["$asm" + id.toString(16).toUpperCase()];
+}
+
 if (typeof (contentManifest) !== "object") { contentManifest = {}; };
 contentManifest["<#= _projName #>.contentproj"] = [
     <# for (int i = 0; i < _fileCount; i++)
