@@ -26,47 +26,25 @@ namespace fuHTMLGen
         public virtual string TransformText()
         {
             this.Write(@"/* The size of these files were reduced. The following function fixes all references. */
-/* Todo: Find references without using string operations */
-
-var $customMSCore = ""$asm04"";
-var $customSys = ""$asm05"";
-var $customSysConf = ""$asm06"";
-var $customSysCore = ""$asm07"";
-var $customSysNum = ""$asm08"";
-var $customSysXml = ""$asm09"";
-var $customSysSec = ""$asm0D"";
-
-var id = 0;
-var next = this[""$asm00""];
-
-while (next) {
-    var nextString = next.toString();
-
-    if (nextString.indexOf(""mscorlib"") != -1) $customMSCore = next;
-    if (nextString.indexOf(""System,"") != -1) $customSys = next;
-    if (nextString.indexOf(""System.Configuration"") != -1) $customSysConf = next;
-    if (nextString.indexOf(""System.Core"") != -1) $customSysCore = next;
-    if (nextString.indexOf(""System.Numerics"") != -1) $customSysNum = next;
-    if (nextString.indexOf(""System.Xml"") != -1) $customSysXml = next;
-    if (nextString.indexOf(""System.Security"") != -1) $customSysSec = next;	
-
-    if (++id < 16)
-        next = this[""$asm0"" + id.toString(16).toUpperCase()];
-    else
-        next = this[""$asm"" + id.toString(16).toUpperCase()];
-}
+var $customMSCore = JSIL.GetAssembly(""mscorlib"");
+var $customSys = JSIL.GetAssembly(""System"");
+var $customSysConf = JSIL.GetAssembly(""System.Configuration"");
+var $customSysCore = JSIL.GetAssembly(""System.Core"");
+var $customSysNum = JSIL.GetAssembly(""System.Numerics"");
+var $customSysXml = JSIL.GetAssembly(""System.Xml"");
+var $customSysSec = JSIL.GetAssembly(""System.Security"");
 
 if (typeof (contentManifest) !== ""object"") { contentManifest = {}; };
 contentManifest[""");
             
-            #line 34 "E:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuTools\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 12 "E:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuTools\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_projName));
             
             #line default
             #line hidden
             this.Write(".contentproj\"] = [\r\n    ");
             
-            #line 35 "E:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuTools\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 13 "E:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuTools\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
  for (int i = 0; i < _fileCount; i++)
        { 
             
@@ -74,35 +52,35 @@ contentManifest[""");
             #line hidden
             this.Write("[\"");
             
-            #line 37 "E:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuTools\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 15 "E:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuTools\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileTypes[i]));
             
             #line default
             #line hidden
             this.Write("\",\t\"");
             
-            #line 37 "E:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuTools\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 15 "E:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuTools\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileNames[i]));
             
             #line default
             #line hidden
             this.Write("\",\t{");
             
-            #line 37 "E:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuTools\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 15 "E:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuTools\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileFormats[i]));
             
             #line default
             #line hidden
             this.Write(" \"sizeBytes\": ");
             
-            #line 37 "E:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuTools\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 15 "E:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuTools\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_fileSize[i]));
             
             #line default
             #line hidden
             this.Write(" }],\r\n    ");
             
-            #line 38 "E:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuTools\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
+            #line 16 "E:\Dropbox\HS Furtwangen\5. Semester\FUSEE\fuTools\fuHTMLGen\fuHTMLGen\ManifestFile.tt"
  } 
             
             #line default
