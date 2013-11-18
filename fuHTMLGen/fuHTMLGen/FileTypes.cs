@@ -21,6 +21,9 @@ namespace fuHTMLGen
             {"oga", "Sound"},
             {"mp3", "Sound"},
 
+            // font files
+            {"ttf", "Font"},
+
             // script files
             {"js", "Script"}
         };
