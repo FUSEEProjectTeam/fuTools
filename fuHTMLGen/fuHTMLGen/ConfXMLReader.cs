@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace fuHTMLGen
 {
@@ -15,5 +13,7 @@ namespace fuHTMLGen
     {
         [XmlElement("useProgressBar")]
         public string UseProgressBar { get; set; }
+        [XmlElement("premultipliedAlpha")]
+        public string PreMultipliedAlpha { get; set; }
     }
 }

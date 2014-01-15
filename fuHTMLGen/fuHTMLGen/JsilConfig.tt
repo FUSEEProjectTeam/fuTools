@@ -10,6 +10,7 @@ var jsilConfig = {
 	xna: "3",
 
 	showProgressBar: <#= _useProgrBar #>,
+	premultipliedAlpha: <#= _preMultAlpha #>,
 
 	manifests: [
 		"<#= _fileName #>",
