@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace fuHTMLGen
 {
-    class Program
+    internal class Program
     {
         private static bool _debugMode;
 
@@ -30,7 +30,7 @@ namespace fuHTMLGen
                 Directory.CreateDirectory(Path.Combine(targWeb, "Assets", "Config"));
         }
 
-        static int Main(string[] args)
+        private static int Main(string[] args)
         {
             if (args.Length < 3) return 1;
 
@@ -51,16 +51,16 @@ namespace fuHTMLGen
             var newHTML = !File.Exists(targWeb + fileName + ".html");
 
             Console.WriteLine(newHTML
-                                  ? "// No HTML file found - generating a simple HTML file"
-                                  : "// HTML file already exists - delete it to create a new one");
+                ? "// No HTML file found - generating a simple HTML file"
+                : "// HTML file already exists - delete it to create a new one");
 
             // Collecting all files
             var customManifest = Directory.Exists(Path.Combine(targDir, "Assets"));
             var customCSS = "";
 
             Console.WriteLine(customManifest
-                                  ? "// Found an Assets folder - collecting all and write manifest"
-                                  : "// No Assets folder - no additional files will be added");
+                ? "// Found an Assets folder - collecting all and write manifest"
+                : "// No Assets folder - no additional files will be added");
 
             List<string> filePaths;
 
@@ -68,47 +68,33 @@ namespace fuHTMLGen
             {
                 filePaths = Directory.GetFiles(Path.Combine(targDir, "Assets")).ToList();
                 filePaths.Sort(string.Compare);
-            } else
+            }
+            else
                 filePaths = new List<string>();
 
             // Load custom implementations first
             var fileCount = 0;
 
-            var exFile1 = File.Exists(Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebAudio.js"));
-            var exFile2 = File.Exists(Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebNet.js"));
-            var exFile3 = File.Exists(Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebGL.js"));
+            var externalFiles = new[]
+            {
+                "Fusee.Engine.Imp.WebAudio", "Fusee.Engine.Imp.WebNet", "Fusee.Engine.Imp.WebGL",
+                "Fusee.Engine.Imp.WebInput", "XirkitScript"
+            };
 
-            if (exFile1)
+            foreach (var extFile in externalFiles)
             {
-                filePaths.Insert(fileCount, Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebAudio.js"));
-                fileCount++;
-            }
-            else
-            {
-                DebugMode("Couldn't find Fusee.Engine.Imp.WebAudio.js");
-                return 1;
-            }
+                var exists = File.Exists(Path.Combine(targWeb, "Assets", "Scripts", extFile + ".js"));
 
-            if (exFile2)
-            {
-                filePaths.Insert(fileCount, Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebNet.js"));
-                fileCount++;
-            }
-            else
-            {
-                DebugMode("Couldn't find Fusee.Engine.Imp.WebNet.js");
-                return 1;
-            }
-
-            if (exFile3)
-            {
-                filePaths.Insert(fileCount, Path.Combine(targWeb, "Assets", "Scripts", "Fusee.Engine.Imp.WebGL.js"));
-                fileCount++;
-            }
-            else
-            {
-                DebugMode("Couldn't find Fusee.Engine.Imp.WebGL.js");
-                return 1;
+                if (exists)
+                {
+                    filePaths.Insert(fileCount, Path.Combine(targWeb, "Assets", "Scripts", extFile + ".js"));
+                    fileCount++;
+                }
+                else
+                {
+                    DebugMode("Couldn't find " + extFile + ".js");
+                    return 1;
+                }
             }
 
             if (customManifest)
@@ -145,33 +131,33 @@ namespace fuHTMLGen
             string manifestContent = manifest.TransformText();
 
             File.WriteAllText(Path.Combine(targWeb, "Assets", "Scripts", fileName + ".contentproj.manifest.js"),
-                              manifestContent);
-            
+                manifestContent);
+
             // Create HTML file
             if (newHTML)
             {
                 Console.WriteLine(customCSS == ""
-                                      ? "// No additional .css file found in Assets folder - using only default one"
-                                      : "// Found an additional .css file in Assets folder - adding to HTML file");
+                    ? "// No additional .css file found in Assets folder - using only default one"
+                    : "// Found an additional .css file in Assets folder - adding to HTML file");
 
                 var page = new WebPage(targApp, customCSS);
                 string pageContent = page.TransformText();
 
                 File.WriteAllText(Path.Combine(targWeb, fileName + ".html"), pageContent);
             }
-            
+
             // Create config file
             var customConf = File.Exists(Path.Combine(targDir, "Assets", "fusee_config.xml"));
 
             Console.WriteLine(!customConf
-                      ? "// No custom config file ('fusee_config.xml') found in Assets folder - using default settings"
-                      : "// Found an custom config file in Assets folder - applying settings to webbuild");
+                ? "// No custom config file ('fusee_config.xml') found in Assets folder - using default settings"
+                : "// Found an custom config file in Assets folder - applying settings to webbuild");
 
             var conf = new JsilConfig(targApp, targDir, customConf);
             string confContent = conf.TransformText();
 
             File.WriteAllText(Path.Combine(targWeb, "Assets", "Config", "jsil_config.js"), confContent);
-            
+
             // Done
             Console.WriteLine("// Finished all tasks");
 
