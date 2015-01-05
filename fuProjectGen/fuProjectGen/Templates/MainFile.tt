@@ -1,6 +1,5 @@
 ﻿<#@ template language="C#" #>
 using Fusee.Engine;
-using Fusee.SceneManagement;
 using Fusee.Math;
 
 namespace Examples.<#= _name #>
