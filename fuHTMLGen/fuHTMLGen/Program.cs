@@ -66,7 +66,7 @@ namespace fuHTMLGen
 
             if (customManifest)
             {
-                filePaths = Directory.GetFiles(Path.Combine(targDir, "Assets")).ToList();
+                filePaths = Directory.GetFiles(Path.Combine(targDir, "Assets"), "*.*", SearchOption.AllDirectories).ToList();
                 filePaths.Sort(string.Compare);
             }
             else
