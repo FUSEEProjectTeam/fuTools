@@ -15,7 +15,7 @@ namespace fuHTMLGen
         private readonly string[] _fileTypes;
         private readonly string[] _fileFormats;
 
-        public ManifestFile(string projName, ICollection<string> filePaths, int specFiles)
+        public ManifestFile(string projName, List<string> filePaths, List<string> dstRelPaths, int specFiles)
         {
             _projName = projName;
             _fileCount = filePaths.Count;
@@ -44,6 +44,10 @@ namespace fuHTMLGen
                         continue;
                     }
 
+                    var pathExt = dstRelPaths[ct].Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                    if (pathExt != "" && !pathExt.EndsWith("/")) 
+                        pathExt += "/";
+
                     // Sound files in more than one format
                     var doubleExt = false;
 
@@ -58,7 +62,7 @@ namespace fuHTMLGen
                             string ext2 = Path.GetExtension(filePaths.ElementAt(ct + 1));
 
                             fileFormatsList.Add(" \"formats\": [\"" + ext1 + "\", \"" + ext2 + "\"],	");
-                            fileNamesList.Add("Assets/" + fileName1);
+                            fileNamesList.Add("Assets/" + pathExt + fileName1);
 
                             ct++;
                             doubleExt = true;
@@ -67,7 +71,7 @@ namespace fuHTMLGen
 
                     if (!doubleExt)
                     {
-                        fileNamesList.Add("Assets/" + Path.GetFileName(filePath));
+                        fileNamesList.Add("Assets/" + pathExt + Path.GetFileName(filePath));
                         fileFormatsList.Add(" ");
                     }
                 }

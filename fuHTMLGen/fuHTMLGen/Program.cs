@@ -30,6 +30,37 @@ namespace fuHTMLGen
                 Directory.CreateDirectory(Path.Combine(targWeb, "Assets", "Config"));
         }
 
+
+        /// <summary>
+        /// Creates a relative path from one file or folder to another.
+        /// </summary>
+        /// <param name="fromPath">Contains the directory that defines the start of the relative path.</param>
+        /// <param name="toPath">Contains the path that defines the endpoint of the relative path.</param>
+        /// <returns>The relative path from the start directory to the end path.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="UriFormatException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        public static String MakeRelativePath(String fromPath, String toPath)
+        {
+            if (String.IsNullOrEmpty(fromPath)) throw new ArgumentNullException("fromPath");
+            if (String.IsNullOrEmpty(toPath)) throw new ArgumentNullException("toPath");
+
+            Uri fromUri = new Uri(fromPath);
+            Uri toUri = new Uri(toPath);
+
+            if (fromUri.Scheme != toUri.Scheme) { return toPath; } // path can't be made relative.
+
+            Uri relativeUri = fromUri.MakeRelativeUri(toUri);
+            String relativePath = Uri.UnescapeDataString(relativeUri.ToString());
+
+            if (toUri.Scheme.ToUpperInvariant() == "FILE")
+            {
+                relativePath = relativePath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+            }
+
+            return relativePath;
+        }
+
         private static int Main(string[] args)
         {
             if (args.Length < 3) return 1;
@@ -97,11 +128,16 @@ namespace fuHTMLGen
                 }
             }
 
+            List<string> destRelativePaths = new List<string>(filePaths.Count);
+            for (int inx = 0; inx < filePaths.Count; inx++)
+                destRelativePaths.Add("");
+
             if (customManifest)
             {
                 // Copy to output folder
                 for (var ct = filePaths.Count - 1; ct > fileCount - 1; ct--)
                 {
+                    bool remove = false;
                     string pathExt = "";
                     string filePath = filePaths.ElementAt(ct);
 
@@ -110,24 +146,47 @@ namespace fuHTMLGen
                     {
                         customCSS = Path.GetFileName(filePath);
                         pathExt = "Styles";
+                        remove = true;
                     }
 
                     if (Path.GetFileName(filePath) == "fusee_config.xml")
+                    {
                         pathExt = "Config";
+                        remove = true;
+                    }
+
+                    var srcAssetFolder = Path.Combine(targDir, "Assets");
+                    if (!srcAssetFolder.EndsWith("\\")) srcAssetFolder += "\\";
+
+                    var srcAssetDirPath = Path.GetDirectoryName(filePath);
+                    if (!srcAssetDirPath.EndsWith("\\")) srcAssetDirPath += "\\";
+
+                    var srcRelativeToAssetsDir = MakeRelativePath(srcAssetFolder, srcAssetDirPath);
+                    pathExt = srcRelativeToAssetsDir;
+                    // DebugMode("MakeRelativePath(" + srcAssetFolder + ", " + srcAssetDirPath + "); yields: " + srcRelativeToAssetsDir);
 
                     // Copy files to output if they not exist yet
                     var tmpFileName = Path.GetFileName(filePath);
+                    var dstFilePath = Path.Combine(targWeb, "Assets", pathExt, tmpFileName);
 
-                    if (tmpFileName != null && !File.Exists(Path.Combine(targWeb, "Assets", pathExt, tmpFileName)))
-                        File.Copy(filePath, Path.Combine(targWeb, "Assets", pathExt, tmpFileName));
+                    if (tmpFileName != null && !File.Exists(dstFilePath))
+                    {
+                        Directory.CreateDirectory(Path.GetDirectoryName(dstFilePath));
+                        File.Copy(filePath, dstFilePath);
+                    }
 
-                    if (pathExt != "")
+                    destRelativePaths[ct] = pathExt;
+
+                    if (remove)
+                    {
                         filePaths.RemoveAt(ct);
+                        destRelativePaths.RemoveAt(ct);
+                    }
                 }
             }
 
             // Create manifest
-            var manifest = new ManifestFile(fileName, filePaths, fileCount);
+            var manifest = new ManifestFile(fileName, filePaths, destRelativePaths, fileCount);
             string manifestContent = manifest.TransformText();
 
             File.WriteAllText(Path.Combine(targWeb, "Assets", "Scripts", fileName + ".contentproj.manifest.js"),
